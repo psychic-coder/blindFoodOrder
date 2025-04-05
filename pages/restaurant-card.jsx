@@ -7,6 +7,7 @@ import RestaurantCardTab from "@/src/components/RestaurantCardTab";
 import Layout from "@/src/layouts/Layout";
 import Link from "next/link";
 import { restaurants } from "@/data/restaurants";
+import VoiceInput from "@/src/components/VoiceInput";
 
 const RestaurantCard = () => {
   const searchParams = useSearchParams();
@@ -43,6 +44,7 @@ const RestaurantCard = () => {
         className="hero-section about gap"
         style={{ backgroundImage: "url(assets/img/background-1.png)" }}
       >
+        <VoiceInput/>
         <div className="container">
           <div className="row align-items-center">
             <div
