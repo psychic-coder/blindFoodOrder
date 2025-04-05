@@ -69,7 +69,7 @@ export default function VoiceInput() {
       if (result.includes('tell me the list of restaurants available')) {
         if (pathname === '/restaurants') {
           const hotelNames = restaurants.map((r) => r.name).join(', ');
-          const message = `Here are the hotels available: ${hotelNames}`;
+          const message = `Here are the restaurants available: ${hotelNames}`;
           SpeakText(message);
         }
       }

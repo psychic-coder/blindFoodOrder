@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import { restaurants } from "@/data/restaurants";
 import Item from "./Item";
 
-const RestaurantCardTab = () => {
+const RestaurantCardTab = (item) => {
+  console.log(item);
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("breakfast");
   const [restaurant, setRestaurant] = useState(null);

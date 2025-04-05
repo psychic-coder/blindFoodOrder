@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Item from "@/src/components/Item";
 import RestaurantCardTab from "@/src/components/RestaurantCardTab";
@@ -11,22 +11,27 @@ import VoiceInput from "@/src/components/VoiceInput";
 
 const RestaurantCard = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const restaurantName = searchParams.get("name");
 
   const [restaurant, setRestaurant] = useState(null);
 
+  // Redirect to default restaurant if name param is missing
   useEffect(() => {
-    if (restaurantName) {
-      const formattedName = restaurantName.toLowerCase().replace(/\s+/g, "");
-
-      const matched = restaurants.find((r) => {
-        const formattedDataName = r.name.toLowerCase().replace(/\s+/g, "");
-        return formattedDataName === formattedName;
-      });
-
-      setRestaurant(matched);
+    if (!restaurantName) {
+      router.push("/restaurant-card?name=lanecafe");
+      return;
     }
-  }, [restaurantName]);
+
+    const formattedName = restaurantName.toLowerCase().replace(/\s+/g, "");
+
+    const matched = restaurants.find((r) => {
+      const formattedDataName = r.name.toLowerCase().replace(/\s+/g, "");
+      return formattedDataName === formattedName;
+    });
+
+    setRestaurant(matched);
+  }, [restaurantName, router]);
 
   if (!restaurant) {
     return (
@@ -44,7 +49,7 @@ const RestaurantCard = () => {
         className="hero-section about gap"
         style={{ backgroundImage: "url(assets/img/background-1.png)" }}
       >
-        <VoiceInput/>
+        <VoiceInput />
         <div className="container">
           <div className="row align-items-center">
             <div
@@ -70,7 +75,10 @@ const RestaurantCard = () => {
                   </li>
                 </ul>
                 <div className="logo-detail">
-                  <img alt="logo" src="assets/img/logos-2.jpg" />
+                  <img
+                    alt="logo"
+                    src="https://quickeat-react.vercel.app/assets/img/logos-2.jpg"
+                  />
                   <h2>{restaurant.name}</h2>
                 </div>
                 <div className="rate">
@@ -99,7 +107,10 @@ const RestaurantCard = () => {
               data-aos-duration={500}
             >
               <div className="about-img">
-                <img alt="restaurant" src="assets/img/restaurant-1.jpg" />
+                <img
+                  alt="restaurant"
+                  src="https://quickeat-react.vercel.app/assets/img/restaurant-1.jpg"
+                />
                 <div className="hours">
                   <i className="fa-regular fa-clock" />
                   <h4>

@@ -47,9 +47,9 @@ const Index = () => {
               data-aos-duration={400}
             >
               <div className="img-restaurant">
-                <img alt="man" src="assets/img/photo-1.png" />
+                <img alt="man" src="https://quickeat-react.vercel.app/assets/img/photo-1.png" />
                 <div className="wilmington">
-                  <img alt="img" src="assets/img/photo-2.jpg" />
+                  <img alt="img" src="https://quickeat-react.vercel.app/assets/img/photo-2.jpg" />
                   <div>
                     <p>Restaurant of the Month</p>
                     <h6>The Wilmington</h6>
@@ -98,7 +98,7 @@ const Index = () => {
               data-aos-duration={300}
             >
               <div className="work-card">
-                <img alt="img" src="assets/img/Illustration-1.png" />
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/Illustration-1.png" />
                 <h4>
                   <span>01</span> Select Restaurant
                 </h4>
@@ -116,7 +116,7 @@ const Index = () => {
               data-aos-duration={400}
             >
               <div className="work-card">
-                <img alt="img" src="assets/img/Illustration-2.png" />
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/Illustration-2.png" />
                 <h4>
                   <span>02</span> Select menu
                 </h4>
@@ -134,7 +134,7 @@ const Index = () => {
               data-aos-duration={500}
             >
               <div className="work-card">
-                <img alt="img" src="assets/img/illustration-3.png" />
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/illustration-3.png" />
                 <h4>
                   <span>03</span> Wait for delivery
                 </h4>
@@ -176,7 +176,7 @@ const Index = () => {
               data-aos-duration={400}
             >
               <div className="logos-card">
-                <img alt="logo" src="assets/img/logos-2.jpg" />
+                <img alt="logo" src="https://quickeat-react.vercel.app/assets/img/logos-2.jpg" />
                 <div className="cafa">
                   <h4>
                     <Link href="restaurant-card">Kennington Lane Cafe</Link>
@@ -210,7 +210,7 @@ const Index = () => {
               data-aos-duration={500}
             >
               <div className="logos-card two">
-                <img alt="logo" src="assets/img/logos-1.jpg" />
+                <img alt="logo" src="https://quickeat-react.vercel.app/assets/img/logos-1.jpg" />
                 <div className="cafa">
                   <h4>
                     <Link href="restaurant-card">The Wilmington</Link>
@@ -244,7 +244,7 @@ const Index = () => {
               data-aos-duration={600}
             >
               <div className="logos-card three">
-                <img alt="logo" src="assets/img/logos-3.jpg" />
+                <img alt="logo" src="https://quickeat-react.vercel.app/assets/img/logos-1.jpg" />
                 <div className="cafa">
                   <h4>
                     <Link href="restaurant-card">Kings Arms</Link>
@@ -294,7 +294,7 @@ const Index = () => {
               data-aos-duration={300}
             >
               <div className="food-photo-section">
-                <img alt="img" src="assets/img/photo-3.png" />{" "}
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/photo-4.png" />{" "}
                 <a href="#" className="one">
                   <i className="fa-solid fa-burger" />
                   Burgers
@@ -433,7 +433,7 @@ const Index = () => {
                         vel".
                       </h4>
                       <div className="thomas">
-                        <img alt="girl" src="assets/img/photo-5.jpg" />
+                        <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-5.jpg" />
                         <div>
                           <h6>Thomas Adamson</h6>
                           <i className="fa-solid fa-star" />
@@ -452,7 +452,7 @@ const Index = () => {
                         vel".
                       </h4>
                       <div className="thomas">
-                        <img alt="girl" src="assets/img/photo-5.jpg" />
+                        <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-5.jpg" />
                         <div>
                           <h6>Thomas Adamson</h6>
                           <i className="fa-solid fa-star" />
@@ -471,7 +471,7 @@ const Index = () => {
                         vel".
                       </h4>
                       <div className="thomas">
-                        <img alt="girl" src="assets/img/photo-5.jpg" />
+                        <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-5.jpg" />
                         <div>
                           <h6>Thomas Adamson</h6>
                           <i className="fa-solid fa-star" />
@@ -501,7 +501,7 @@ const Index = () => {
               data-aos-duration={400}
             >
               <div className="reviews-img">
-                <img alt="photo" src="assets/img/photo-4.png" />
+                <img alt="photo" src="https://quickeat-react.vercel.app/assets/img/photo-4.png" />
                 <i className="fa-regular fa-thumbs-up" />
               </div>
             </div>
@@ -523,7 +523,7 @@ const Index = () => {
               data-aos-duration={300}
             >
               <div className="join-img">
-                <img alt="img" src="assets/img/photo-6.jpg" />
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/photo-6.jpg" />
                 <div className="Join-courier">
                   <h3>Join Courier</h3>
                   <Link href="become-partner" className="button button-2">
@@ -539,7 +539,7 @@ const Index = () => {
               data-aos-duration={400}
             >
               <div className="join-img">
-                <img alt="img" src="assets/img/photo-7.jpg" />
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/photo-7.jpg" />
                 <div className="Join-courier">
                   <h3>Join Merchant</h3>
                   <Link href="become-partner" className="button button-2">
@@ -563,7 +563,7 @@ const Index = () => {
               data-aos-duration={300}
             >
               <div className="news-posts-one">
-                <img alt="man" src="assets/img/photo-8.jpg" />
+                <img alt="man" src="https://quickeat-react.vercel.app/assets/img/photo-8.jpg" />
                 <div className="quickeat">
                   {" "}
                   <a href="#">news</a> <a href="#">quickeat</a>
@@ -608,7 +608,7 @@ const Index = () => {
               data-aos-duration={400}
             >
               <div className="news-post-two">
-                <img alt="food-img" src="assets/img/food-1.jpg" />
+                <img alt="food-img" src="https://quickeat-react.vercel.app/assets/img/food-1.jpg" />
                 <div className="news-post-two-data">
                   <div className="quickeat">
                     {" "}
@@ -646,7 +646,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="news-post-two">
-                <img alt="food-img" src="assets/img/food-2.jpg" />
+                <img alt="food-img" src="https://quickeat-react.vercel.app/assets/img/food-1.jpg" />
                 <div className="news-post-two-data">
                   <div className="quickeat">
                     {" "}
@@ -682,7 +682,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="news-post-two end">
-                <img alt="food-img" src="assets/img/food-3.jpg" />
+                <img alt="food-img" src="https://quickeat-react.vercel.app/assets/img/food-3.jpg" />
                 <div className="news-post-two-data">
                   <div className="quickeat">
                     {" "}

@@ -30,7 +30,7 @@ const MobileMenu = () => {
           </li>
         </ul>
       </li>
-      <li className={`menu-item-has-children ${activeLi("Pages")}`}>
+      {/* <li className={`menu-item-has-children ${activeLi("Pages")}`}>
         <a href="#" onClick={() => activeMenuSet("Pages")}>
           Pages
         </a>
@@ -57,7 +57,7 @@ const MobileMenu = () => {
             <Link href="404">404</Link>
           </li>
         </ul>
-      </li>
+      </li> */}
       <li>
         <Link href="contact">contacts</Link>
       </li>

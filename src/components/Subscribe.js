@@ -13,7 +13,7 @@ const Subscribe = () => {
             data-aos-duration={300}
           >
             <div className="img-subscribe">
-              <img alt="Illustration" src="assets/img/illustration-4.png" />
+              <img alt="Illustration" src="https://quickeat-react.vercel.app/assets/img/illustration-4.png" />
             </div>
           </div>
           <div

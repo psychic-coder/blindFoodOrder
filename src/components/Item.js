@@ -29,7 +29,7 @@ const Item = ({ item }) => {
       <div className="dish">
         <img alt="food-dish" src={item.image} />
         <div className="dish-foods" style={{ display: cardInfo === item.id ? "none" : "block" }}>
-          <h3>{item.title}</h3>
+          <h3>{item.item}</h3>
           <div className="dish-icon">
             <div className="cafa-button">
               {dynamicTags.map((tag, i) => (

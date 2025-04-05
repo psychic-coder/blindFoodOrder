@@ -51,7 +51,7 @@ const Restaurants = () => {
               data-aos-duration={400}
             >
               <div className="restaurants-girl-img food-photo-section">
-                <img alt="man" src="assets/img/photo-11.png" />{" "}
+                <img alt="man" src="https://quickeat-react.vercel.app/assets/img/photo-11.png" />{" "}
                 <a href="#" className="one">
                   <i className="fa-solid fa-burger" />
                   Burgers
@@ -83,7 +83,7 @@ const Restaurants = () => {
         <div className="container">
           <div
             className="banner-img"
-            style={{ backgroundImage: "url(assets/img/food-4.jpg)" }}
+            style={{ backgroundImage: "url(https://quickeat-react.vercel.app/assets/img/food-4.jpg)" }}
           >
             <div className="banner-logo">
               <h4>
@@ -93,7 +93,7 @@ const Restaurants = () => {
                 <span className="chevron chevron--left" />
               </h4>
               <div className="banner-wilmington">
-                <img alt="logo" src="assets/img/logo-s.jpg" />
+                <img alt="logo" src="https://quickeat-react.vercel.app/assets/img/logo-s.jpg" />
                 <h6>The Wilmington</h6>
               </div>
             </div>

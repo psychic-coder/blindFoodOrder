@@ -75,7 +75,7 @@ const Contacts = () => {
               data-aos-duration={400}
             >
               <div className="contact-us-img">
-                <img alt="contacts-img-girl" src="assets/img/contacts-1.png" />
+                <img alt="contacts-img-girl" src="https://quickeat-react.vercel.app/assets/img/contacts-1.png" />
               </div>
             </div>
           </div>

@@ -134,7 +134,9 @@ const Header = ({ extraClass }) => {
                     <Link href="checkout">Checkout</Link>
                   </div>
                 </li>
-                <li className="navbar-dropdown">
+
+                {/*below is a Dropdown which include many pages */}
+                {/* <li className="navbar-dropdown">
                   <Link href="#">Pages</Link>
                   <div className="dropdown">
                     <Link href="blog">Blog</Link>
@@ -145,7 +147,7 @@ const Header = ({ extraClass }) => {
                     <Link href="become-partner">Become A Partner</Link>
                     <Link href="404">404</Link>
                   </div>
-                </li>
+                </li> */}
                 <li className="navbar-dropdown">
                   <Link href="contacts">Contacts</Link>
                 </li>

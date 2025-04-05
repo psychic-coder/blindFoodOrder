@@ -42,7 +42,7 @@ const About = () => {
               data-aos-duration={500}
             >
               <div className="about-img">
-                <img alt="man" src="assets/img/photo-9.jpg" />
+                <img alt="man" src="https://quickeat-react.vercel.app/assets/img/photo-9.jpg" />
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@ const About = () => {
               data-aos-duration={400}
             >
               <div className="our-mission-img">
-                <img alt="Illustration" src="assets/img/illustration-5.png" />
+                <img alt="Illustration" src="https://quickeat-react.vercel.app/assets/img/illustration-5.png" />
               </div>
             </div>
             <div
@@ -236,7 +236,7 @@ const About = () => {
               data-aos-duration={400}
             >
               <div className="video-section-img">
-                <img alt="elements" src="assets/img/elements-1.jpg" />
+                <img alt="elements" src="https://quickeat-react.vercel.app/assets/img/elements-1.jpg" />
                 <a
                   data-fancybox
                   href="https://www.youtube.com/watch?v=CKnGXZxK7zs"
@@ -262,7 +262,7 @@ const About = () => {
               data-aos-duration={300}
             >
               <div className="about-counters-img">
-                <img alt="girl" src="assets/img/photo-10.png" />
+                <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-10.png" />
               </div>
             </div>
             <div
@@ -360,7 +360,7 @@ const About = () => {
               data-aos-duration={300}
             >
               <div className="our-team">
-                <img alt="team-img" src="assets/img/team-1.png" />
+                <img alt="team-img" src="https://quickeat-react.vercel.app/assets/img/team-1.png" />
                 <h4>
                   {" "}
                   <a href="#">Kevin Adamson</a>
@@ -395,7 +395,7 @@ const About = () => {
               data-aos-duration={400}
             >
               <div className="our-team">
-                <img alt="team-img" src="assets/img/team-2.png" />
+                <img alt="team-img" src="https://quickeat-react.vercel.app/assets/img/team-2.png" />
                 <h4>
                   {" "}
                   <a href="#">Roxie Gilbert</a>
@@ -433,7 +433,7 @@ const About = () => {
               data-aos-duration={500}
             >
               <div className="our-team">
-                <img alt="team-img" src="assets/img/team-3.png" />
+                <img alt="team-img" src="https://quickeat-react.vercel.app/assets/img/team-3.png" />
                 <h4>
                   {" "}
                   <a href="#">Edgar Johnson</a>
@@ -482,31 +482,31 @@ const About = () => {
           >
             <SwiperSlide className="item">
               <div className="logo-img">
-                <img alt="logo-img" src="assets/img/logo-1.png" />
+                <img alt="logo-img" src="https://quickeat-react.vercel.app/assets/img/logo-1.png" />
                 <h5>Kings Arms</h5>
               </div>
             </SwiperSlide>
             <SwiperSlide className="item">
               <div className="logo-img">
-                <img alt="logo-img" src="assets/img/logo-2.png" />
+                <img alt="logo-img" src="https://quickeat-react.vercel.app/assets/img/logo-2.png" />
                 <h5>Wilmington</h5>
               </div>
             </SwiperSlide>
             <SwiperSlide className="item">
               <div className="logo-img">
-                <img alt="logo-img" src="assets/img/logo-3.png" />
+                <img alt="logo-img" src="https://quickeat-react.vercel.app/assets/img/logo-3.png" />
                 <h5>Kennington</h5>
               </div>
             </SwiperSlide>
             <SwiperSlide className="item">
               <div className="logo-img">
-                <img alt="logo-img" src="assets/img/logo-4.png" />
+                <img alt="logo-img" src="https://quickeat-react.vercel.app/assets/img/logo-4.png" />
                 <h5>The Victoria</h5>
               </div>
             </SwiperSlide>
             <SwiperSlide className="item">
               <div className="logo-img">
-                <img alt="logo-img" src="assets/img/logo-5.png" />
+                <img alt="logo-img" src="https://quickeat-react.vercel.app/assets/img/logo-5.png" />
                 <h5>The Andover Arms</h5>
               </div>
             </SwiperSlide>
@@ -551,7 +551,7 @@ const About = () => {
                       viverra suspendisse".
                     </p>
                     <div className="thomas">
-                      <img alt="girl" src="assets/img/photo-5.jpg" />
+                      <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-5.jpg" />
                       <div>
                         <h6>Thomas Adamson</h6>
                         <i className="fa-solid fa-star" />
@@ -572,7 +572,7 @@ const About = () => {
                       viverra suspendisse".
                     </p>
                     <div className="thomas">
-                      <img alt="girl" src="assets/img/photo-5.jpg" />
+                      <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-5.jpg" />
                       <div>
                         <h6>Thomas Adamson</h6>
                         <i className="fa-solid fa-star" />
@@ -593,7 +593,7 @@ const About = () => {
                       viverra suspendisse".
                     </p>
                     <div className="thomas">
-                      <img alt="girl" src="assets/img/photo-5.jpg" />
+                      <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-5.jpg" />
                       <div>
                         <h6>Thomas Adamson</h6>
                         <i className="fa-solid fa-star" />
