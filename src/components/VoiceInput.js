@@ -76,7 +76,6 @@ export default function VoiceInput() {
       
       if (result.includes('show me the menu of')) {
         const matched = result.match(/show me the menu of (.+)/);
-        console.log(matched)
         if (matched && matched[1]) {
           const spokenName = matched[1].trim().toLowerCase();
           const hotel = restaurants.find(
@@ -91,6 +90,39 @@ export default function VoiceInput() {
           }
         }
       }
+
+      
+      if (result.includes('tell me the menu')) {
+        if (pathname.startsWith('/restaurant-card')) {
+          const queryString = window.location.search;
+          const urlParams = new URLSearchParams(queryString);
+          const nameParam = urlParams.get('name');
+      
+          if (nameParam) {
+            const restaurantName = decodeURIComponent(nameParam).toLowerCase().replace(/\s/g, '');
+            const restaurant = restaurants.find(
+              (r) => r.name.toLowerCase().replace(/\s/g, '') === restaurantName
+            );
+      
+            if (restaurant) {
+              SpeakText(`Here are the menu items for ${restaurant.name}:`);
+              restaurant.menu.forEach((item, index) => {
+                
+                setTimeout(() => {
+                  SpeakText(item.item);
+                }, index * 1000);
+              });
+            } else {
+              SpeakText(`Sorry, I couldn't find the restaurant in the database.`);
+            }
+          } else {
+            SpeakText(`Restaurant name not found in the URL.`);
+          }
+        } else {
+          SpeakText(`Please go to the restaurant's page first to hear the menu.`);
+        }
+      }
+      
     };
 
     recognition.onerror = (event) => {

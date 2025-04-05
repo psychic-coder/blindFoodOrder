@@ -1,7 +1,7 @@
 export const restaurants = [
   {
     id: 1,
-    name: 'Kennington Lane Cafe',
+    name: 'Lane Cafe',
     location: 'London',
     image: 'assets/img/logos-2.jpg',
     rating: 4,
@@ -10,9 +10,9 @@ export const restaurants = [
     desc: 'Enjoy a classic mix of American and seafood dishes in a cozy London café.',
     href: 'restaurant-card',
     menu: [
-      { item: 'Egg, kiwi and sauce chilli', price: 39 },
-      { item: 'Potatoes with pork and dried fruits', price: 39 },
-      { item: 'Rice with shrimps and kiwi', price: 39 },
+      { item: 'Eggs', price: 39 },
+      { item: 'Potatoes with pork', price: 39 },
+      { item: 'Rice with shrimps ', price: 39 },
       { item: 'Fruits with rice chips', price: 39 },
       { item: 'Vegetables with rice chips', price: 39 },
       { item: 'Pork with vegetables and herbs', price: 39 },
