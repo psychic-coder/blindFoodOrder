@@ -20,7 +20,7 @@ export const restaurants = [
   },
   {
     id: 2,
-    name: 'The Wilmington',
+    name: 'The Wellington',
     location: 'Clerkenwell',
     image: 'assets/img/logos-1.jpg',
     rating: 5,

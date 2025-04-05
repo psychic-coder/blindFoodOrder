@@ -56,7 +56,7 @@ export default function VoiceInput() {
       setTranscript(result);
       console.log('Voice input:', result);
 
-      // Navigate to /restaurants
+     
       if (result.includes('show me the restaurants available')) {
         if (pathname === '/') {
           console.log("Navigating to /restaurants...");
@@ -64,7 +64,7 @@ export default function VoiceInput() {
         }
       }
 
-      // Speak list of restaurants
+      
       if (result.includes('tell me the list of restaurants available')) {
         if (pathname === '/restaurants') {
           const hotelNames = restaurants.map((r) => r.name).join(', ');
@@ -73,9 +73,10 @@ export default function VoiceInput() {
         }
       }
 
-      // Navigate to a specific hotel's menu
+      
       if (result.includes('show me the menu of')) {
         const matched = result.match(/show me the menu of (.+)/);
+        console.log(matched)
         if (matched && matched[1]) {
           const spokenName = matched[1].trim().toLowerCase();
           const hotel = restaurants.find(

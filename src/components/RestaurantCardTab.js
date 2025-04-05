@@ -1,8 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { restaurants } from "@/data/restaurants";
 import Item from "./Item";
 
-const RestaurantCardTab = ({ items }) => {
+const RestaurantCardTab = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("breakfast");
+  const [restaurant, setRestaurant] = useState(null);
+
+  useEffect(() => {
+    if (router.isReady) {
+      const { name } = router.query;
+
+      if (name) {
+        
+        const queryName = name.toLowerCase().replace(/\s/g, "");
+
+        const found = restaurants.find((r) => {
+          const normalizedName = r.name.toLowerCase().replace(/\s/g, "");
+          return normalizedName === queryName;
+        });
+
+        setRestaurant(found);
+      }
+    }
+  }, [router.isReady, router.query]);
+
+  if (!restaurant) {
+    return (
+      <div className="text-center mt-10">
+        <p>Restaurant not found or loading...</p>
+      </div>
+    );
+  }
+
   return (
     <section className="tabs gap">
       <div className="container">
@@ -15,123 +46,47 @@ const RestaurantCardTab = ({ items }) => {
                 data-aos-delay={200}
                 data-aos-duration={300}
               >
-                <div
-                  className="nav nav-pills me-3"
-                  id="v-pills-tab"
-                  role="tablist"
-                  aria-orientation="vertical"
-                >
-                  <button
-                    id="v-pills-home-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-home"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-home"
-                    aria-selected="true"
-                    className={`nav-link ${
-                      activeTab == "breakfast" ? "active" : ""
-                    }`}
-                    onClick={() => setActiveTab("breakfast")}
-                  >
-                    Breakfast
-                  </button>
-                  <button
-                    id="v-pills-profile-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-profile"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-profile"
-                    aria-selected="false"
-                    className={`nav-link ${
-                      activeTab == "lunch" ? "active" : ""
-                    }`}
-                    onClick={() => setActiveTab("lunch")}
-                  >
-                    Lunch
-                  </button>
-                  <button
-                    id="v-pills-messages-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-messages"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-messages"
-                    aria-selected="false"
-                    className={`nav-link ${
-                      activeTab == "dinner" ? "active" : ""
-                    }`}
-                    onClick={() => setActiveTab("dinner")}
-                  >
-                    Dinner
-                  </button>
+                <div className="nav nav-pills me-3" role="tablist">
+                  {["breakfast", "lunch", "dinner"].map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      className={`nav-link ${activeTab === cat ? "active" : ""}`}
+                      onClick={() => setActiveTab(cat)}
+                    >
+                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </button>
+                  ))}
                 </div>
                 <div className="like-meal">
-                  {" "}
                   <a href="#">
-                    <i className="fa-solid fa-heart" />
-                    Like Meals
+                    <i className="fa-solid fa-heart" /> Like Meals
                   </a>
                 </div>
               </div>
             </div>
+
             <div className="col-lg-12">
-              <div className="tab-content" id="v-pills-tabContent">
-                <div
-                  className={`tab-pane fade ${
-                    activeTab == "breakfast" ? "show active" : ""
-                  }`}
-                  id="v-pills-home"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-home-tab"
-                >
-                  <div className="row">
-                    {items.map(
-                      (item, i) =>
-                        i <= 5 &&
-                        item.category.includes("breakfast") && (
-                          <Item item={item} key={item.id} />
-                        )
-                    )}
+              <div className="tab-content">
+                {["breakfast", "lunch", "dinner"].map((cat) => (
+                  <div
+                    key={cat}
+                    className={`tab-pane fade ${activeTab === cat ? "show active" : ""}`}
+                  >
+                    <div className="row">
+                      {restaurant.category.includes(cat) ? (
+                        restaurant.menu
+                        .filter((item) => Array.isArray(item.category) ? item.category.includes(cat) : item.category === cat)
+                          .slice(0, 6)
+                          .map((menuItem, idx) => (
+                            <Item item={menuItem} key={idx} />
+                          ))
+                      ) : (
+                        <p className="text-center mt-3">No {cat} items available.</p>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div
-                  className={`tab-pane fade ${
-                    activeTab == "lunch" ? "show active" : ""
-                  }`}
-                  id="v-pills-profile"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-profile-tab"
-                >
-                  <div className="row">
-                    {items.map(
-                      (item, i) =>
-                        i <= 5 &&
-                        item.category.includes("lunch") && (
-                          <Item item={item} key={item.id} />
-                        )
-                    )}
-                  </div>
-                </div>
-                <div
-                  className={`tab-pane fade ${
-                    activeTab == "dinner" ? "show active" : ""
-                  }`}
-                  id="v-pills-messages"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-messages-tab"
-                >
-                  <div className="row">
-                    {items.map(
-                      (item, i) =>
-                        i <= 5 &&
-                        item.category.includes("dinner") && (
-                          <Item item={item} key={item.id} />
-                        )
-                    )}
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -140,4 +95,5 @@ const RestaurantCardTab = ({ items }) => {
     </section>
   );
 };
+
 export default RestaurantCardTab;

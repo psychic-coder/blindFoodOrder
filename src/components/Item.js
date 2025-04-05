@@ -1,7 +1,23 @@
 import { Fragment, useState } from "react";
+import { useSearchParams } from "next/navigation"; 
+import { restaurants } from "@/data/restaurants";
+
+
 const Item = ({ item }) => {
   const [cardInfo, setCardInfo] = useState(false);
   const [quantity, setQuantity] = useState(1);
+
+  const searchParams = useSearchParams();
+  const nameParam = searchParams.get("name")?.toLowerCase().replace(/\s+/g, "");
+
+
+  const matchedRestaurant = restaurants.find((r) =>
+    r.name.toLowerCase().replace(/\s+/g, "") === nameParam
+  );
+
+
+  const dynamicTags = matchedRestaurant?.tags || ["grill", "barbecue", "classic"];
+
   return (
     <div
       className="col-xl-4 col-lg-6"
@@ -12,17 +28,11 @@ const Item = ({ item }) => {
     >
       <div className="dish">
         <img alt="food-dish" src={item.image} />
-        <div
-          className="dish-foods"
-          style={{
-            display: cardInfo == item.id ? "none" : "block",
-          }}
-        >
+        <div className="dish-foods" style={{ display: cardInfo === item.id ? "none" : "block" }}>
           <h3>{item.title}</h3>
           <div className="dish-icon">
             <div className="cafa-button">
-              {" "}
-              {item.tags.map((tag, i) => (
+              {dynamicTags.map((tag, i) => (
                 <Fragment key={i}>
                   <a href="#">{tag}</a>{" "}
                 </Fragment>
@@ -31,12 +41,9 @@ const Item = ({ item }) => {
             <div className="dish-icon end">
               <i
                 className="info fa-solid fa-circle-info"
-                onClick={() =>
-                  setCardInfo(cardInfo == item.id ? false : item.id)
-                }
+                onClick={() => setCardInfo(cardInfo === item.id ? false : item.id)}
               />
               <div className="star">
-                {" "}
                 <a href="#">
                   <i className="fa-solid fa-heart" />
                 </a>
@@ -48,7 +55,6 @@ const Item = ({ item }) => {
             <div className="qty-input">
               <button
                 className="qty-count qty-count--minus"
-                data-action="minus"
                 type="button"
                 onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
               >
@@ -63,7 +69,6 @@ const Item = ({ item }) => {
               />
               <button
                 className="qty-count qty-count--add"
-                data-action="add"
                 type="button"
                 onClick={() => setQuantity(quantity + 1)}
               >
@@ -76,20 +81,11 @@ const Item = ({ item }) => {
             <i className="fa-solid fa-bag-shopping" />
           </button>
         </div>
-        <div
-          className="dish-info"
-          style={{
-            display: cardInfo == item.id ? "block" : "none",
-          }}
-        >
-          <i
-            className="info2 fa-solid fa-xmark"
-            onClick={() => setCardInfo(false)}
-          />
+        <div className="dish-info" style={{ display: cardInfo === item.id ? "block" : "none" }}>
+          <i className="info2 fa-solid fa-xmark" onClick={() => setCardInfo(false)} />
           <h5>{item.title}</h5>
           <div className="cafa-button">
-            {" "}
-            {item.tags.map((tag, i) => (
+            {dynamicTags.map((tag, i) => (
               <Fragment key={i}>
                 <a href="#">{tag}</a>{" "}
               </Fragment>
@@ -109,4 +105,5 @@ const Item = ({ item }) => {
     </div>
   );
 };
+
 export default Item;
