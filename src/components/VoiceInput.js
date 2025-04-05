@@ -13,6 +13,9 @@ export default function VoiceInput() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const [menuSpoken, setMenuSpoken] = useState(false);
+  const currentRestaurantRef = useRef(null);
+
   useEffect(() => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -56,7 +59,6 @@ export default function VoiceInput() {
       setTranscript(result);
       console.log('Voice input:', result);
 
-     
       if (result.includes('show me the restaurants available')) {
         if (pathname === '/') {
           console.log("Navigating to /restaurants...");
@@ -64,7 +66,6 @@ export default function VoiceInput() {
         }
       }
 
-      
       if (result.includes('tell me the list of restaurants available')) {
         if (pathname === '/restaurants') {
           const hotelNames = restaurants.map((r) => r.name).join(', ');
@@ -73,7 +74,6 @@ export default function VoiceInput() {
         }
       }
 
-      
       if (result.includes('show me the menu of')) {
         const matched = result.match(/show me the menu of (.+)/);
         if (matched && matched[1]) {
@@ -91,25 +91,30 @@ export default function VoiceInput() {
         }
       }
 
-      
       if (result.includes('tell me the menu')) {
         if (pathname.startsWith('/restaurant-card')) {
           const queryString = window.location.search;
           const urlParams = new URLSearchParams(queryString);
           const nameParam = urlParams.get('name');
-      
+
           if (nameParam) {
             const restaurantName = decodeURIComponent(nameParam).toLowerCase().replace(/\s/g, '');
             const restaurant = restaurants.find(
               (r) => r.name.toLowerCase().replace(/\s/g, '') === restaurantName
             );
-      
+
             if (restaurant) {
+              currentRestaurantRef.current = restaurant;
               SpeakText(`Here are the menu items for ${restaurant.name}:`);
+
               restaurant.menu.forEach((item, index) => {
-                
                 setTimeout(() => {
                   SpeakText(item.item);
+                  if (index === restaurant.menu.length - 1) {
+                    setTimeout(() => {
+                      setMenuSpoken(true);
+                    }, 1000);
+                  }
                 }, index * 1000);
               });
             } else {
@@ -120,6 +125,38 @@ export default function VoiceInput() {
           }
         } else {
           SpeakText(`Please go to the restaurant's page first to hear the menu.`);
+        }
+      }
+
+      if (result.includes('order')) {
+        const match = result.match(/order (.+)/);
+        const itemName = match?.[1]?.trim().toLowerCase();
+      
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const nameParam = urlParams.get('name');
+      
+        if (nameParam) {
+          const restaurantName = decodeURIComponent(nameParam).toLowerCase().replace(/\s/g, '');
+          const restaurant = restaurants.find(
+            (r) => r.name.toLowerCase().replace(/\s/g, '') === restaurantName
+          );
+      
+          if (restaurant && itemName) {
+            const foundItem = restaurant.menu.find(
+              (m) => m.item.toLowerCase() === itemName
+            );
+      
+            if (foundItem) {
+              SpeakText(`Your item is ordered.`);
+            } else {
+              SpeakText(`Sorry, ${itemName} is not available in the menu of ${restaurant.name}.`);
+            }
+          } else {
+            SpeakText(`Could not find the restaurant or item.`);
+          }
+        } else {
+          SpeakText(`Restaurant name not found in the URL.`);
         }
       }
       
