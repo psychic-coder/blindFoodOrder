@@ -28,7 +28,7 @@ const About = () => {
                     </Link>
                   </li>
                 </ul>
-                <h2>Nothing to worry about with Quickeat</h2>
+                <h2>Nothing to worry about with VoiceToByte</h2>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor.

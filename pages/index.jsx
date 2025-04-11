@@ -566,7 +566,7 @@ const Index = () => {
                 <img alt="man" src="https://quickeat-react.vercel.app/assets/img/photo-8.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
                 <h3>We Have Received An Award For The Quality Of Our Work</h3>
                 <p>
@@ -583,7 +583,7 @@ const Index = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>
@@ -616,7 +616,7 @@ const Index = () => {
                   </div>
                   <h6>
                     <Link href="single-blog">
-                      With Quickeat you can order food for the whole day
+                      With VoiceToByte you can order food for the whole day
                     </Link>
                   </h6>
                   <p>
@@ -627,7 +627,7 @@ const Index = () => {
                     <li>
                       <h6>
                         <i className="fa-solid fa-user" />
-                        by Quickeat
+                        by VoiceToByte
                       </h6>
                     </li>
                     <li>
@@ -663,7 +663,7 @@ const Index = () => {
                     <li>
                       <h6>
                         <i className="fa-solid fa-user" />
-                        by Quickeat
+                        by VoiceToByte
                       </h6>
                     </li>
                     <li>
@@ -701,7 +701,7 @@ const Index = () => {
                     <li>
                       <h6>
                         <i className="fa-solid fa-user" />
-                        by Quickeat
+                        by VoiceToByte
                       </h6>
                     </li>
                     <li>

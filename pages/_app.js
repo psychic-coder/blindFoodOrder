@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
     <Fragment>
       <Head>
         {/* seo begin */}
-        <title>QuickEat</title>
+        <title>VoiceToByte</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* seo end */}        
       </Head>

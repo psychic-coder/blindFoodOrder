@@ -98,10 +98,10 @@ const Header = ({ extraClass }) => {
                       fontWeight={700}
                     >
                       <tspan x={0} y={0}>
-                        QUICK
+                      Voice
                       </tspan>
                       <tspan y={0} fill="#f29f05">
-                        EAT
+                        2Byte
                       </tspan>
                     </text>
                   </g>
@@ -265,10 +265,10 @@ const Header = ({ extraClass }) => {
                       fontWeight={700}
                     >
                       <tspan x={0} y={0}>
-                        QUICK
+                        Voice2
                       </tspan>
                       <tspan y={0} fill="#f29f05">
-                        EAT
+                        Byte
                       </tspan>
                     </text>
                   </g>

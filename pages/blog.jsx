@@ -72,7 +72,7 @@ const Blog = () => {
                   <img alt="man" src="assets/img/blog-2.jpg" />
                   <div className="quickeat">
                     {" "}
-                    <a href="#">news</a> <a href="#">quickeat</a>
+                    <a href="#">news</a> <a href="#">VoiceToByte</a>
                   </div>
                 </div>
                 <div className="blog-post-data-img">
@@ -91,7 +91,7 @@ const Blog = () => {
                     <li>
                       <h6>
                         <i className="fa-solid fa-user" />
-                        by Quickeat
+                        by VoiceToByte
                       </h6>
                     </li>
                     <li>
@@ -120,9 +120,9 @@ const Blog = () => {
                 <img alt="man" src="assets/img/news-2.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
-                <h3>With Quickeat you can order food for the whole day</h3>
+                <h3>With VoiceToByte you can order food for the whole day</h3>
                 <p>
                   Scelerisque purus semper eget duis at. Tincidunt ornare massa
                   eget egestas purus viverra. Morbi enim nunc faucibus a
@@ -137,7 +137,7 @@ const Blog = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>
@@ -165,7 +165,7 @@ const Blog = () => {
                 <img alt="man" src="assets/img/news-3.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
                 <h3>127+ Couriers On Our Team Big Food Trends</h3>
                 <p>
@@ -182,7 +182,7 @@ const Blog = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>
@@ -210,7 +210,7 @@ const Blog = () => {
                 <img alt="man" src="assets/img/news-7.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
                 <h3>Why You Should Optimize Your Menu for Delivery</h3>
                 <p>
@@ -227,7 +227,7 @@ const Blog = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>
@@ -255,7 +255,7 @@ const Blog = () => {
                 <img alt="man" src="assets/img/news-4.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
                 <h3>How Restaurants Can Engage with Millennials in 2022</h3>
                 <p>
@@ -272,7 +272,7 @@ const Blog = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>
@@ -300,7 +300,7 @@ const Blog = () => {
                 <img alt="man" src="assets/img/news-5.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
                 <h3>Why You Should Optimize Your Menu for Delivery</h3>
                 <p>
@@ -317,7 +317,7 @@ const Blog = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>
@@ -345,7 +345,7 @@ const Blog = () => {
                 <img alt="man" src="assets/img/news-6.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
                 <h3>5 Big food Trends Coming Your Way in 2022</h3>
                 <p>
@@ -362,7 +362,7 @@ const Blog = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>

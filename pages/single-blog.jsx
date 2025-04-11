@@ -56,7 +56,7 @@ const SingleBlog = () => {
               <div className="name-dedails">
                 <img alt="girl" src="assets/img/girl.jpg" />
                 <h6>Roxie Gilbert</h6>
-                <span>press secretary Quickeat</span>
+                <span>press secretary VoiceToByte</span>
               </div>
             </div>
             <div className="col-lg-12">
@@ -204,7 +204,7 @@ const SingleBlog = () => {
                     <div className="name-dedails">
                       <img alt="girl" src="assets/img/girl.jpg" />
                       <h6>Roxie Gilbert</h6>
-                      <span>press secretary Quickeat</span>
+                      <span>press secretary VoiceToByte</span>
                       <ul className="social-media">
                         <li>
                           {" "}

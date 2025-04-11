@@ -90,7 +90,7 @@ const BecomePartner = () => {
               data-aos-duration={400}
             >
               <div className="benefit-text">
-                <h2>Benefits you get with Quickeat</h2>
+                <h2>Benefits you get with VoiceToByte</h2>
                 <p>
                   Suspendisse in est ante in. Duis at consectetur lorem donec
                   massa. Eget lorem dolor sed viverra ipsum. Aliquam id diam
@@ -276,7 +276,7 @@ const BecomePartner = () => {
                 <img alt="man" src="assets/img/news-1.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
                 <h3>We Have Received An Award For The Quality Of Our Work</h3>
                 <p>
@@ -291,7 +291,7 @@ const BecomePartner = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>
@@ -319,9 +319,9 @@ const BecomePartner = () => {
                 <img alt="man" src="assets/img/news-2.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
-                <h3>With Quickeat you can order food for the whole day</h3>
+                <h3>With VoiceToByte you can order food for the whole day</h3>
                 <p>
                   Nec tincidunt praesent semper feugiat nibh. Feugiat in ante
                   metus dictum. Sapien nec sagittis aliquam malesuada bibendum
@@ -335,7 +335,7 @@ const BecomePartner = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>
@@ -363,7 +363,7 @@ const BecomePartner = () => {
                 <img alt="man" src="assets/img/news-3.jpg" />
                 <div className="quickeat">
                   {" "}
-                  <a href="#">news</a> <a href="#">quickeat</a>
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
                 </div>
                 <h3>127+ Couriers On Our Team!</h3>
                 <p>
@@ -379,7 +379,7 @@ const BecomePartner = () => {
                   <li>
                     <h6>
                       <i className="fa-solid fa-user" />
-                      by Quickeat
+                      by VoiceToByte
                     </h6>
                   </li>
                   <li>

@@ -88,10 +88,10 @@ const Footer = () => {
                       fontWeight={700}
                     >
                       <tspan x={0} y={0}>
-                        QUICK
+                        Voice2
                       </tspan>
                       <tspan y={0} fill="#f29f05">
-                        EAT
+                        Byte
                       </tspan>
                     </text>
                   </g>
@@ -175,7 +175,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-two gap no-bottom">
-          <p>Copyright © 2023. QuickEat. All rights reserved.</p>
+          <p>Copyright © 2023. VoiceToByte. All rights reserved.</p>
           <div className="privacy">
             {" "}
             <a href="#">Privacy Policy</a> <a href="#">Terms &amp; Services</a>
