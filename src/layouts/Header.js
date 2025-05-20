@@ -154,7 +154,7 @@ const Header = ({ extraClass }) => {
               </ul>
             </nav>
           </div>
-          <div className="col-lg-3">
+          <div className="col-lg-3 gap-x-2">
             <div className="extras bag">
               <a
                 href="#"
@@ -164,6 +164,9 @@ const Header = ({ extraClass }) => {
               >
                 <i className="fa-solid fa-bag-shopping" />
               </a>
+              <Link href="signin" className="button button-2">
+                SignIn
+              </Link>
               <Link href="checkout" className="button button-2">
                 Order Now
               </Link>
