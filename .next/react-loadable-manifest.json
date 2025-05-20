@@ -82,5 +82,17 @@
     "files": [
       "static/chunks/reactPlayerYouTube.js"
     ]
+  },
+  "_app.js -> aos": {
+    "id": "_app.js -> aos",
+    "files": [
+      "static/chunks/node_modules_aos_dist_aos_js.js"
+    ]
+  },
+  "_app.js -> bootstrap/dist/js/bootstrap.bundle.min": {
+    "id": "_app.js -> bootstrap/dist/js/bootstrap.bundle.min",
+    "files": [
+      "static/chunks/node_modules_bootstrap_dist_js_bootstrap_bundle_min_js.js"
+    ]
   }
 }
