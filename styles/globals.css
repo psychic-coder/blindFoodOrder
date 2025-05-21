@@ -6,3 +6,11 @@
 .owl-carousel {
   display: block;
 }
+
+a, a:hover, 
+a:focus, a:active,
+[role="link"], 
+.next-link, 
+[data-nextjs-link] {
+  text-decoration: none !important;
+}

@@ -98,7 +98,7 @@ const Header = ({ extraClass }) => {
                       fontWeight={700}
                     >
                       <tspan x={0} y={0}>
-                      Voice
+                        Voice
                       </tspan>
                       <tspan y={0} fill="#f29f05">
                         2Byte
@@ -154,8 +154,8 @@ const Header = ({ extraClass }) => {
               </ul>
             </nav>
           </div>
-          <div className="col-lg-3 gap-x-2">
-            <div className="extras bag">
+          <div className="col-lg-3">
+            <div className="extras bag d-flex align-items-center gap-2">
               <a
                 href="#"
                 id="desktop-menu"
@@ -164,11 +164,13 @@ const Header = ({ extraClass }) => {
               >
                 <i className="fa-solid fa-bag-shopping" />
               </a>
-              <Link href="signin" className="button button-2">
+              <Link href="signin" className="button button-2 me-2">
+                {" "}
+                {/* ← Added me-2 here */}
                 SignIn
               </Link>
               <Link href="checkout" className="button button-2">
-                Order Now
+                Order
               </Link>
             </div>
           </div>

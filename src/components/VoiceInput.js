@@ -5,6 +5,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { restaurants } from '@/data/restaurants';
 import { SpeakText } from './SpeakText';
 import { playSound } from './PlaySound';
+import detectLanguage from './Franc'; // ✅ Fixed import
+import translateToEnglish from './LibreText';
 
 export default function VoiceInput() {
   const [isListening, setIsListening] = useState(false);
@@ -57,11 +59,21 @@ export default function VoiceInput() {
     recognition.onresult = (event) => {
       const result = event.results[0][0].transcript.toLowerCase();
       setTranscript(result);
-      console.log('Voice input:', result);
 
+      const { isoCode, languageName } = detectLanguage(result);
+      console.log("Detected Language:", languageName, `(${isoCode})`);
+
+      
+      if (isoCode !== "en") {
+         translateToEnglish({ text: result, sourceLang: isoCode }).then((res)=>console.log(res));
+        
+      }      
+
+
+
+      // Add your command handling logic below
       if (result.includes('show me the restaurants available')) {
         if (pathname === '/') {
-          console.log("Navigating to /restaurants...");
           router.push('/restaurants');
         }
       }
@@ -69,8 +81,7 @@ export default function VoiceInput() {
       if (result.includes('tell me the list of restaurants available')) {
         if (pathname === '/restaurants') {
           const hotelNames = restaurants.map((r) => r.name).join(', ');
-          const message = `Here are the restaurants available: ${hotelNames}`;
-          SpeakText(message);
+          SpeakText(`Here are the restaurants available: ${hotelNames}`);
         }
       }
 
@@ -131,22 +142,22 @@ export default function VoiceInput() {
       if (result.includes('order')) {
         const match = result.match(/order (.+)/);
         const itemName = match?.[1]?.trim().toLowerCase();
-      
+
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const nameParam = urlParams.get('name');
-      
+
         if (nameParam) {
           const restaurantName = decodeURIComponent(nameParam).toLowerCase().replace(/\s/g, '');
           const restaurant = restaurants.find(
             (r) => r.name.toLowerCase().replace(/\s/g, '') === restaurantName
           );
-      
+
           if (restaurant && itemName) {
             const foundItem = restaurant.menu.find(
               (m) => m.item.toLowerCase() === itemName
             );
-      
+
             if (foundItem) {
               SpeakText(`Your item is ordered.`);
             } else {
@@ -159,7 +170,6 @@ export default function VoiceInput() {
           SpeakText(`Restaurant name not found in the URL.`);
         }
       }
-      
     };
 
     recognition.onerror = (event) => {

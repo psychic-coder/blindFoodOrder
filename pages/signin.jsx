@@ -1,9 +1,11 @@
+"use client"
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export default function Signin() {
+
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +36,7 @@ export default function Signin() {
               <div className="auth-card shadow-lg rounded-4 overflow-hidden">
                 {/* Brand Header */}
                 <div className="auth-header text-center py-4" data-aos="fade-down">
-                  <Link href="/" className="d-inline-block mb-3">
+                  <Link href="/" className="d-inline-block mb-3 no-underline">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={163}
