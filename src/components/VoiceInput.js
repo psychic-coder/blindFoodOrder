@@ -7,7 +7,7 @@ import { SpeakText } from "./SpeakText";
 import { playSound } from "./PlaySound";
 import detectLanguage from "./Franc"; // ✅ Fixed import
 import translateToEnglish from "./LibreText";
-import   { classifyIntent, classifyIntentFromDeepSeek }  from "./DeepSeek";
+import   { classifyIntent, classifyIntentFromDeepSeek, processUserInput }  from "./DeepSeek";
 
 export default function VoiceInput() {
   const [isListening, setIsListening] = useState(false);
@@ -71,7 +71,7 @@ export default function VoiceInput() {
         });
         console.log("Translated:", translatedText);
       
-        const intent = await classifyIntentFromDeepSeek(translatedText);
+        const intent = await processUserInput(translatedText);
         console.log("Detected Intent:", intent);
         
        
