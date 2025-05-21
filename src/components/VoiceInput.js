@@ -1,16 +1,17 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState, useRef } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import { restaurants } from '@/data/restaurants';
-import { SpeakText } from './SpeakText';
-import { playSound } from './PlaySound';
-import detectLanguage from './Franc'; // ✅ Fixed import
-import translateToEnglish from './LibreText';
+import React, { useEffect, useState, useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { restaurants } from "@/data/restaurants";
+import { SpeakText } from "./SpeakText";
+import { playSound } from "./PlaySound";
+import detectLanguage from "./Franc"; // ✅ Fixed import
+import translateToEnglish from "./LibreText";
+import   { classifyIntent, classifyIntentFromDeepSeek }  from "./DeepSeek";
 
 export default function VoiceInput() {
   const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
+  const [transcript, setTranscript] = useState("");
   const recognitionRef = useRef(null);
   const pathname = usePathname();
   const router = useRouter();
@@ -23,32 +24,32 @@ export default function VoiceInput() {
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
-      alert('Speech Recognition is not supported in this browser.');
+      alert("Speech Recognition is not supported in this browser.");
       return;
     }
 
     const recognition = new SpeechRecognition();
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-IN';
+    recognition.lang = "en-IN";
 
     recognitionRef.current = recognition;
 
     const handleKeyPress = (e) => {
-      if (e.code === 'Space') {
+      if (e.code === "Space") {
         e.preventDefault();
         toggleListening();
       }
     };
 
-    window.addEventListener('keydown', handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyPress);
+      window.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
 
-  const toggleListening = () => {
+  const toggleListening =  () => {
     const recognition = recognitionRef.current;
 
     if (!recognition) {
@@ -56,36 +57,44 @@ export default function VoiceInput() {
       return;
     }
 
-    recognition.onresult = (event) => {
+    recognition.onresult = async (event) => {
       const result = event.results[0][0].transcript.toLowerCase();
       setTranscript(result);
 
       const { isoCode, languageName } = detectLanguage(result);
       console.log("Detected Language:", languageName, `(${isoCode})`);
 
+      try {
+        const translatedText = await translateToEnglish({ 
+          text: result, 
+          sourceLang: isoCode 
+        });
+        console.log("Translated:", translatedText);
       
-      if (isoCode !== "en") {
-         translateToEnglish({ text: result, sourceLang: isoCode }).then((res)=>console.log(res));
+        const intent = await classifyIntentFromDeepSeek(translatedText);
+        console.log("Detected Intent:", intent);
         
-      }      
+       
+      } catch (error) {
+        console.error("Processing failed:", error);
+      
+      }
 
-
-
-      // Add your command handling logic below
-      if (result.includes('show me the restaurants available')) {
-        if (pathname === '/') {
-          router.push('/restaurants');
+     
+      if (result.includes("show me the restaurants available")) {
+        if (pathname === "/") {
+          router.push("/restaurants");
         }
       }
 
-      if (result.includes('tell me the list of restaurants available')) {
-        if (pathname === '/restaurants') {
-          const hotelNames = restaurants.map((r) => r.name).join(', ');
+      if (result.includes("tell me the list of restaurants available")) {
+        if (pathname === "/restaurants") {
+          const hotelNames = restaurants.map((r) => r.name).join(", ");
           SpeakText(`Here are the restaurants available: ${hotelNames}`);
         }
       }
 
-      if (result.includes('show me the menu of')) {
+      if (result.includes("show me the menu of")) {
         const matched = result.match(/show me the menu of (.+)/);
         if (matched && matched[1]) {
           const spokenName = matched[1].trim().toLowerCase();
@@ -102,16 +111,18 @@ export default function VoiceInput() {
         }
       }
 
-      if (result.includes('tell me the menu')) {
-        if (pathname.startsWith('/restaurant-card')) {
+      if (result.includes("tell me the menu")) {
+        if (pathname.startsWith("/restaurant-card")) {
           const queryString = window.location.search;
           const urlParams = new URLSearchParams(queryString);
-          const nameParam = urlParams.get('name');
+          const nameParam = urlParams.get("name");
 
           if (nameParam) {
-            const restaurantName = decodeURIComponent(nameParam).toLowerCase().replace(/\s/g, '');
+            const restaurantName = decodeURIComponent(nameParam)
+              .toLowerCase()
+              .replace(/\s/g, "");
             const restaurant = restaurants.find(
-              (r) => r.name.toLowerCase().replace(/\s/g, '') === restaurantName
+              (r) => r.name.toLowerCase().replace(/\s/g, "") === restaurantName
             );
 
             if (restaurant) {
@@ -129,28 +140,34 @@ export default function VoiceInput() {
                 }, index * 1000);
               });
             } else {
-              SpeakText(`Sorry, I couldn't find the restaurant in the database.`);
+              SpeakText(
+                `Sorry, I couldn't find the restaurant in the database.`
+              );
             }
           } else {
             SpeakText(`Restaurant name not found in the URL.`);
           }
         } else {
-          SpeakText(`Please go to the restaurant's page first to hear the menu.`);
+          SpeakText(
+            `Please go to the restaurant's page first to hear the menu.`
+          );
         }
       }
 
-      if (result.includes('order')) {
+      if (result.includes("order")) {
         const match = result.match(/order (.+)/);
         const itemName = match?.[1]?.trim().toLowerCase();
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        const nameParam = urlParams.get('name');
+        const nameParam = urlParams.get("name");
 
         if (nameParam) {
-          const restaurantName = decodeURIComponent(nameParam).toLowerCase().replace(/\s/g, '');
+          const restaurantName = decodeURIComponent(nameParam)
+            .toLowerCase()
+            .replace(/\s/g, "");
           const restaurant = restaurants.find(
-            (r) => r.name.toLowerCase().replace(/\s/g, '') === restaurantName
+            (r) => r.name.toLowerCase().replace(/\s/g, "") === restaurantName
           );
 
           if (restaurant && itemName) {
@@ -161,7 +178,9 @@ export default function VoiceInput() {
             if (foundItem) {
               SpeakText(`Your item is ordered.`);
             } else {
-              SpeakText(`Sorry, ${itemName} is not available in the menu of ${restaurant.name}.`);
+              SpeakText(
+                `Sorry, ${itemName} is not available in the menu of ${restaurant.name}.`
+              );
             }
           } else {
             SpeakText(`Could not find the restaurant or item.`);
@@ -173,7 +192,7 @@ export default function VoiceInput() {
     };
 
     recognition.onerror = (event) => {
-      console.error('Speech recognition error', event.error);
+      console.error("Speech recognition error", event.error);
     };
 
     if (isListening) {
@@ -190,13 +209,13 @@ export default function VoiceInput() {
   return (
     <div className="p-4 rounded shadow-lg max-w-md mx-auto bg-white text-black mt-10 text-center">
       <p className="text-lg font-semibold">
-        Press <span className="text-blue-600">Spacebar</span> to{' '}
-        {isListening ? 'stop' : 'start'} listening 🎤
+        Press <span className="text-blue-600">Spacebar</span> to{" "}
+        {isListening ? "stop" : "start"} listening 🎤
       </p>
       <p className="mt-4 font-medium">
-        Transcript:{' '}
+        Transcript:{" "}
         <span className="text-gray-800">
-          {transcript || 'Waiting for input...'}
+          {transcript || "Waiting for input..."}
         </span>
       </p>
     </div>
