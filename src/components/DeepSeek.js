@@ -1,25 +1,24 @@
 import axios from 'axios';
+import OpenAI from 'openai';
 
-const OPENROUTER_API_KEY = process.env.DEEPSEEK_API_KEY||"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";
-const SITE_URL = 'http://localhost:3000';
+////i hate integrating anything ai in this app its motherfucker bitch ass hole cant h=even make a request
 
-// Debugging cache
 let lastRequest = null;
 let lastResponse = null;
 
 export async function processUserInput(message) {
-  // Normalize input
+  
   const cleanMessage = message.trim().toLowerCase();
 
-  /* PHASE 1: INTENT CLASSIFICATION */
+  
   const intent = await classifyIntent(cleanMessage);
   
-  // If clear intent found, return it immediately
+ 
   if (!intent.startsWith('6|')) {
     return { type: 'intent', result: intent };
   }
 
-  /* PHASE 2: FOOD TAG EXTRACTION (Fallback) */
+  
   const tags = await extractFoodTags(cleanMessage);
   
   if (tags.length > 0) {
@@ -29,17 +28,17 @@ export async function processUserInput(message) {
     };
   }
 
-  /* PHASE 3: ULTIMATE FALLBACK */
+ 
   return { 
     type: 'unknown',
     result: 'Could not understand request' 
   };
 }
 
-// 1. Intent Classifier
+
 async function classifyIntent(message) {
     const hardcodedIntents = {
-        // Show restaurants intent (visual)
+       
         'show me restaurants': '1|show_restaurants',
         'display restaurants': '1|show_restaurants',
         'find places to eat': '1|show_restaurants',
@@ -51,7 +50,7 @@ async function classifyIntent(message) {
         'display eateries': '1|show_restaurants',
         'show nearby restaurants': '1|show_restaurants',
       
-        // List restaurants intent (audio)
+       
         'list restaurants': '2|list_restaurants',
         'tell me restaurants': '2|list_restaurants',
         'name some places to eat': '2|list_restaurants',
@@ -63,7 +62,7 @@ async function classifyIntent(message) {
         'what are my food options': '2|list_restaurants',
         'list places to eat': '2|list_restaurants',
       
-        // Show menu intent
+       
         'show me the menu': '3|show_menu',
         'display the menu': '3|show_menu',
         'whats on the menu': '3|show_menu',
@@ -75,7 +74,7 @@ async function classifyIntent(message) {
         'show your offerings': '3|show_menu',
         'what can i order': '3|show_menu',
       
-        // Read menu intent (audio)
+       
         'read the menu': '4|read_menu',
         'tell me the menu': '4|read_menu',
         'say the dishes': '4|read_menu',
@@ -87,7 +86,7 @@ async function classifyIntent(message) {
         'read me the dishes': '4|read_menu',
         'tell me available food': '4|read_menu',
       
-        // Order item intent
+       
         'i want to order': '5|order_item',
         'get me food': '5|order_item',
         'place an order': '5|order_item',
@@ -99,7 +98,7 @@ async function classifyIntent(message) {
         'prepare me a meal': '5|order_item',
         'make me something': '5|order_item',
       
-        // Common variations
+       
         'restaurants please': '1|show_restaurants',
         'food places': '1|show_restaurants',
         'show restaurants': '1|show_restaurants',
@@ -142,10 +141,10 @@ async function classifyIntent(message) {
   }
 }
 
-// 2. Food Tag Extractor
+
 async function extractFoodTags(message) {
     const quickTags = {
-        // Flavors
+       
         'spicy': ['spicy'],
         'hot': ['spicy'],
         'sweet': ['sweet'],
@@ -155,9 +154,9 @@ async function extractFoodTags(message) {
         'mild': ['mild'],
         'savory': ['umami'],
         
-        // Dietary Restrictions
+       
         'vegetarian': ['vegetarian'],
-        'veg ': ['vegetarian'], // Matches "veg " (space prevents matching "vegan")
+        'veg ': ['vegetarian'], 
         'vegan': ['vegan'],
         'gluten': ['gluten-free'],
         'dairy': ['dairy-free'],
@@ -166,7 +165,7 @@ async function extractFoodTags(message) {
         'nut free': ['nut-free'],
         'pescatarian': ['pescatarian'],
         
-        // Health Conditions
+     
         'pregnant': ['pregnant', 'sour'],
         'diabetic': ['diabetic', 'low-sugar'],
         'diabetes': ['diabetic', 'low-sugar'],
@@ -174,43 +173,43 @@ async function extractFoodTags(message) {
         'low carb': ['low-carb'],
         'low fat': ['low-fat'],
         'high protein': ['high-protein'],
-        'allerg': ['allergy'], // Matches "allergy" or "allergies"
+        'allerg': ['allergy'],
         
-        // Religious Dietary
+       
         'halal': ['halal'],
         'kosher': ['kosher'],
         'jain': ['jain'],
         'buddhist': ['buddhist'],
         
-        // Textures
+       
         'crunchy': ['crunchy'],
         'creamy': ['creamy'],
         'chewy': ['chewy'],
         'soft': ['soft'],
         'crispy': ['crunchy'],
         
-        // Cooking Styles
+        
         'grilled': ['grilled'],
         'fried': ['fried'],
         'steamed': ['steamed'],
         'raw': ['raw'],
         'organic': ['organic'],
         
-        // Meal Types
+       
         'breakfast': ['breakfast'],
         'brunch': ['brunch'],
         'lunch': ['lunch'],
         'dinner': ['dinner'],
         'snack': ['snack'],
         
-        // Regional
+      
         'italian': ['italian'],
         'mexican': ['mexican'],
         'indian': ['indian'],
         'chinese': ['chinese'],
         'mediterranean': ['mediterranean'],
         
-        // Verbs/Modifiers
+       
         'craving': ['craving'],
         'want': ['want'],
         'need': ['need'],
@@ -219,7 +218,7 @@ async function extractFoodTags(message) {
         'looking for': ['looking for']
       };
 
-  // Quick keyword check
+  
   for (const [keyword, tags] of Object.entries(quickTags)) {
     if (message.includes(keyword)) {
       return tags;
@@ -253,36 +252,85 @@ async function extractFoodTags(message) {
   }
 }
 
-// Shared API Call Function
+
+
+
+
+
+
+
+// Configuration constants
+const OPENROUTER_CONFIG = {
+  BASE_URL: 'https://openrouter.ai/api/v1',
+  API_KEY: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY || "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",
+  SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+  APP_NAME: 'voice2bite'
+};
+
+
+const openaiClient = new OpenAI({
+  baseURL: OPENROUTER_CONFIG.BASE_URL,
+  apiKey: OPENROUTER_CONFIG.API_KEY,
+  dangerouslyAllowBrowser: true,
+  defaultHeaders: {
+    'HTTP-Referer': OPENROUTER_CONFIG.SITE_URL,
+    'X-Title': OPENROUTER_CONFIG.APP_NAME
+  }
+});
+
+
+
+
+// irritating motherfucker , 
+const OPENROUTER_API_KEY = "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"; // Test with direct key first
+// const OPENROUTER_API_KEY = process.env.NEXT_PUBLIC_OPENROUTER_API_KEY; // Use this in production
+
+
+const openai = new OpenAI({
+  baseURL: 'https://openrouter.ai/api/v1/chat/completions',
+  apiKey: OPENROUTER_API_KEY, 
+  dangerouslyAllowBrowser: true,
+  defaultHeaders: {
+    'HTTP-Referer': 'http://localhost:3000', 
+    'X-Title': 'voice2bite',
+  }
+});
+
 async function callLanguageAPI(prompt) {
-  lastRequest = { prompt };
-  
-  const response = await axios.post(
-    'https://openrouter.ai/api/v1/chat/completions',
-    {
-      model: 'deepseek-chat',
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "deepseek/deepseek-r1-zero:free",
       messages: [
-        { role: 'system', content: 'Respond concisely.' },
-        { role: 'user', content: prompt }
-      ],
-      temperature: 0.3,
-      max_tokens: 30
-    },
-    {
+        {
+          role: "system",
+          content: "You are an AI assistant that determines whether two sentences have the same meaning."
+        },
+        { 
+          role: "user", 
+          content: prompt 
+        }
+      ]
+    }, {
       headers: {
         'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-        'HTTP-Referer': SITE_URL,
-        'Content-Type': 'application/json'
-      },
-      timeout: 8000
-    }
-  );
+        'Content-Type': 'application/json',
+        'HTTP-Referer': "http://localhost:3000",
+        'X-Title': 'voice2bite'
+      }
+    });
 
-  lastResponse = response.data;
-  return response.data.choices[0].message.content.trim();
+    return completion.choices[0]?.message?.content?.trim();
+
+  } catch (error) {
+    console.error("API Error Details:", {
+      status: error.status,
+      message: error.message,
+      requestConfig: error.config,
+      responseData: error.response?.data
+    });
+    throw new Error(`API request failed: ${error.message}`);
+  }
 }
-
-// Response Validators
 function validateIntentResponse(response) {
   if (/^[1-6]\|[\w_]+$/.test(response)) {
     return response;

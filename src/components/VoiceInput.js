@@ -5,9 +5,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { restaurants } from "@/data/restaurants";
 import { SpeakText } from "./SpeakText";
 import { playSound } from "./PlaySound";
-import detectLanguage from "./Franc"; // ✅ Fixed import
-import translateToEnglish from "./LibreText";
-import   { classifyIntent, classifyIntentFromDeepSeek, processUserInput }  from "./DeepSeek";
+import detectLanguage from "./Franc"; 
+import {translateToEnglish} from "./LibreText";
+import   {  processUserInput }  from "./DeepSeek";
 
 export default function VoiceInput() {
   const [isListening, setIsListening] = useState(false);

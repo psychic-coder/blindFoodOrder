@@ -6,14 +6,14 @@ const SUPPORTED_LANGUAGES = new Set([
   'ja', 'ar', 'da', 'nl', 'sv', 'hi', 'bn'
 ]);
 
-async function translateToEnglish({ text, sourceLang }) {
+export async function translateToEnglish({ text, sourceLang }) {
   
   if (!text?.trim()) {
     console.warn('Empty text provided');
     return text;
   }
 
-  // Handle undefined language
+
   if (!sourceLang || sourceLang === 'und') {
     console.warn('Undefined language, attempting auto-detection');
     try {
@@ -37,7 +37,7 @@ async function translateToEnglish({ text, sourceLang }) {
     const url = `https://api.mymemory.translated.net/get?q=${encodedText}&langpair=${sourceLang}|en`;
     
     const response = await axios.get(url, {
-      timeout: 3000, // 3-second timeout
+      timeout: 3000, 
       params: {
         key: process.env.MYMEMORY_API_KEY 
       }
