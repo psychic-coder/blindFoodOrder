@@ -1,85 +1,72 @@
-import { useEffect } from 'react';
 import Subscribe from "@/src/components/Subscribe";
 import VoiceInput from "@/src/components/VoiceInput";
 import Layout from "@/src/layouts/Layout";
 import { sliderProps } from "@/src/sliderProps";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import '../styles/animate.css';
-
 const Index = () => {
-  useEffect(() => {
-    // Initialize animations
-    const animateOnScroll = () => {
-      const elements = document.querySelectorAll('[data-aos]');
-      elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const isVisible = (rect.top <= window.innerHeight * 0.8);
-        if (isVisible) {
-          el.classList.add('animate__animated', `animate__${el.dataset.aos}`);
-        }
-      });
-    };
-
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on load
-    
-    return () => window.removeEventListener('scroll', animateOnScroll);
-  }, []);
-
   return (
     <Layout>
-      {/* Hero Section - Modern Gradient Background */}
-      <section className="hero-section gap position-relative overflow-hidden">
-        <div className="position-absolute w-100 h-100 bg-gradient-primary" style={{zIndex: -1}}></div>
-        <div className="container position-relative">
-          <div className="row align-items-center min-vh-75 py-5">
-            <div className="col-lg-6" data-aos="fade-right">
-              <div className="restaurant text-white">
-                <h1 className="display-3 fw-bold mb-4">The Best Restaurants Delivered to Your Door</h1>
-                <p className="lead mb-4 opacity-75">
-                  Discover culinary excellence from the comfort of your home. 
-                  Fresh, fast, and fabulous food at your fingertips.
+      <section
+        className="hero-section gap"
+        style={{ backgroundImage: "url(assets/img/background-1.png)" }}
+      >
+        <div className="container">
+          <div className="row align-items-center">
+            <div
+              className="col-lg-6"
+              data-aos="fade-up"
+              data-aos-delay={200}
+              data-aos-duration={300}
+            >
+              <div className="restaurant">
+                <h1>The Best restaurants in your home</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor.
                 </p>
-                <div className="d-flex flex-column flex-md-row gap-3">
-                  <VoiceInput className="flex-grow-1"/>
-                  <Link href="checkout" className="btn btn-light btn-lg px-4 rounded-pill shadow-sm fw-bold">
-                    Order Now <i className="fas fa-arrow-right ms-2"></i>
+                <div className="nice-select-one">
+                  {/* <select className="nice-select Advice">
+                    <option>Choose a Restaurant</option>
+                    <option>Choose a Restaurant 1</option>
+                    <option>Choose a Restaurant 2</option>
+                    <option>Choose a Restaurant 3</option>
+                    <option>Choose a Restaurant 4</option>
+                  </select>{" "} */}
+                  <VoiceInput/>
+                  <Link href="checkout" className="button button-2">
+                    Order Now
                   </Link>
-                </div>
-                <div className="d-flex gap-3 mt-4">
-                  <div className="d-flex align-items-center">
-                    <i className="fas fa-check-circle text-success me-2"></i>
-                    <span>100% Satisfaction</span>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <i className="fas fa-bolt text-warning me-2"></i>
-                    <span>Fast Delivery</span>
-                  </div>
                 </div>
               </div>
             </div>
-            <div className="col-lg-6" data-aos="fade-left">
-              <div className="position-relative">
-                <img 
-                  alt="food delivery" 
-                  src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                  className="img-fluid rounded-4 shadow-lg animate__animated animate__pulse animate__infinite"
-                  style={{animationDuration: '3s'}}
-                />
-                <div className="position-absolute bottom-0 start-0 bg-white p-3 rounded-3 shadow-sm d-flex align-items-center animate__animated animate__fadeInUp"
-                  style={{transform: 'translate(-20%, 20%)', maxWidth: '250px'}}>
-                  <div className="bg-primary p-2 rounded-3 me-3">
-                    <i className="fas fa-crown text-white"></i>
-                  </div>
+            <div
+              className="col-lg-6"
+              data-aos="fade-up"
+              data-aos-delay={300}
+              data-aos-duration={400}
+            >
+              <div className="img-restaurant">
+                <img alt="man" src="https://quickeat-react.vercel.app/assets/img/photo-1.png" />
+                <div className="wilmington">
+                  <img alt="img" src="https://quickeat-react.vercel.app/assets/img/photo-2.jpg" />
                   <div>
-                    <p className="mb-0 text-muted small">Restaurant of the Month</p>
-                    <h6 className="mb-0 fw-bold">The Wilmington</h6>
-                    <div className="text-warning">
-                      {[...Array(5)].map((_, i) => (
-                        i < 4 ? <i key={i} className="fas fa-star"></i> : <i key={i} className="fas fa-star-half-alt"></i>
-                      ))}
+                    <p>Restaurant of the Month</p>
+                    <h6>The Wilmington</h6>
+                    <div>
+                      <i className="fa-solid fa-star" />
+                      <i className="fa-solid fa-star" />
+                      <i className="fa-solid fa-star" />
+                      <i className="fa-solid fa-star" />
+                      <i className="fa-regular fa-star-half-stroke" />
                     </div>
+                  </div>
+                </div>
+                <div className="wilmington location-restaurant">
+                  <i className="fa-solid fa-location-dot" />
+                  <div>
+                    <h6>12 Restaurant</h6>
+                    <p>In Your city</p>
                   </div>
                 </div>
               </div>
@@ -87,465 +74,658 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* How It Works - Cards with Hover Effects */}
-      <section className="works-section gap no-top bg-light">
+      {/* works-section */}
+      <section className="works-section gap no-top">
         <div className="container">
-          <div className="text-center mb-5" data-aos="fade-up">
-            <h2 className="display-5 fw-bold mb-3">How It Works</h2>
-            <p className="lead text-muted mx-auto" style={{maxWidth: '600px'}}>
-              Three simple steps to satisfy your cravings. Deliciousness delivered 
-              straight to your doorstep.
+          <div
+            className="hading"
+            data-aos="fade-up"
+            data-aos-delay={200}
+            data-aos-duration={300}
+          >
+            <h2>How it works</h2>
+            <p>
+              Magna sit amet purus gravida quis blandit turpis cursus. Venenatis
+              tellus in
+              <br /> metus vulputate eu scelerisque felis.
             </p>
           </div>
-          <div className="row g-4">
-            {[
-              {
-                icon: 'fa-magnifying-glass',
-                title: 'Select Restaurant',
-                text: 'Browse our curated selection of top-rated restaurants. Filter by cuisine, rating, or delivery time.',
-                color: 'primary'
-              },
-              {
-                icon: 'fa-utensils',
-                title: 'Choose Your Meal',
-                text: 'Pick from hundreds of delicious options. Customize your order to your exact preferences.',
-                color: 'success'
-              },
-              {
-                icon: 'fa-motorcycle',
-                title: 'Fast Delivery',
-                text: 'Track your order in real-time. Hot, fresh food delivered by our professional couriers.',
-                color: 'danger'
-              }
-            ].map((item, index) => (
-              <div key={index} className="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay={index * 100}>
-                <div className={`card h-100 border-0 shadow-sm hover-effect bg-${item.color}-subtle`}>
-                  <div className="card-body p-4 text-center">
-                    <div className={`icon-lg bg-${item.color} text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4`}>
-                      <i className={`fas ${item.icon} fa-lg`}></i>
-                    </div>
-                    <h4 className="mb-3">
-                      <span className={`text-${item.color} me-2`}>0{index + 1}</span> 
-                      {item.title}
-                    </h4>
-                    <p className="text-muted mb-0">{item.text}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Restaurants - Modern Cards */}
-      <section className="best-restaurants gap">
-        <div className="container">
-          <div className="row align-items-center mb-5">
-            <div className="col-lg-6" data-aos="fade-right">
-              <h2 className="display-5 fw-bold mb-3">Top Restaurants in Your City</h2>
-              <p className="lead text-muted">
-                Hand-picked selections of the finest dining experiences, now available for delivery.
-              </p>
-            </div>
-            <div className="col-lg-6 text-lg-end" data-aos="fade-left">
-              <Link href="restaurants" className="btn btn-outline-dark btn-lg px-4 rounded-pill">
-                View All <i className="fas fa-arrow-right ms-2"></i>
-              </Link>
-            </div>
-          </div>
-          
-          <div className="row g-4">
-            {[
-              {
-                name: "Kennington Lane Cafe",
-                image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                rating: 4,
-                tags: ["american", "steakhouse", "seafood"],
-                description: "Modern American cuisine with a focus on fresh, seasonal ingredients and bold flavors."
-              },
-              {
-                name: "The Wilmington",
-                image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                rating: 5,
-                tags: ["fine dining", "steakhouse", "wine bar"],
-                description: "Elegant fine dining experience featuring premium cuts and an extensive wine selection."
-              },
-              {
-                name: "Kings Arms",
-                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                rating: 4.5,
-                tags: ["healthy", "vegetarian", "organic"],
-                description: "Health-conscious menu with organic, locally-sourced ingredients and vegetarian options."
-              }
-            ].map((restaurant, index) => (
-              <div key={index} className="col-lg-4 col-md-6" data-aos="flip-up" data-aos-delay={index * 100}>
-                <div className="card h-100 border-0 overflow-hidden shadow-sm hover-effect">
-                  <div className="position-relative">
-                    <img 
-                      src={restaurant.image} 
-                      alt={restaurant.name} 
-                      className="card-img-top object-fit-cover" 
-                      style={{height: '200px'}}
-                    />
-                    <div className="position-absolute top-0 end-0 m-3">
-                      <span className="badge bg-success bg-opacity-90 text-white">
-                        <i className="fas fa-star me-1"></i> {restaurant.rating}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="card-body">
-                    <h5 className="card-title fw-bold">{restaurant.name}</h5>
-                    <div className="mb-3">
-                      {restaurant.tags.map((tag, i) => (
-                        <span key={i} className="badge bg-light text-dark me-1 mb-1">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <p className="card-text text-muted">{restaurant.description}</p>
-                  </div>
-                  <div className="card-footer bg-transparent border-0">
-                    <Link href="/restaurant-card" className="btn btn-sm btn-outline-primary rounded-pill">
-                      View Menu <i className="fas fa-chevron-right ms-1"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Food Categories - Interactive Section */}
-      <section className="food-categories gap bg-gradient-primary text-white position-relative overflow-hidden">
-        <div className="container position-relative">
-          <div className="row align-items-center">
-            <div className="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
-              <div className="position-relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                  alt="Food variety" 
-                  className="img-fluid rounded-4 shadow-lg"
-                />
-                {[
-                  {icon: 'fa-burger', label: 'Burgers', className: 'position-absolute top-0 start-0 translate-middle'},
-                  {icon: 'fa-drumstick-bite', label: 'Steaks', className: 'position-absolute top-50 start-100 translate-middle'},
-                  {icon: 'fa-pizza-slice', label: 'Pizza', className: 'position-absolute bottom-0 start-0 translate-middle'}
-                ].map((item, index) => (
-                  <button 
-                    key={index}
-                    className={`btn btn-light rounded-pill shadow-sm px-3 py-2 animate__animated animate__pulse animate__infinite ${item.className}`}
-                    style={{animationDelay: `${index * 0.5}s`, animationDuration: '2s'}}
-                  >
-                    <i className={`fas ${item.icon} text-primary me-2`}></i>
-                    {item.label}
-                  </button>
-                ))}
+          <div className="row ">
+            <div
+              className="col-lg-4 col-md-6 col-sm-12"
+              data-aos="flip-up"
+              data-aos-delay={200}
+              data-aos-duration={300}
+            >
+              <div className="work-card">
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/Illustration-1.png" />
+                <h4>
+                  <span>01</span> Select Restaurant
+                </h4>
+                <p>
+                  Non enim praesent elementum facilisis leo vel fringilla.
+                  Lectus proin nibh nisl condimentum id. Quis varius quam
+                  quisque id diam vel.
+                </p>
               </div>
             </div>
-            <div className="col-lg-6 offset-lg-1" data-aos="fade-left">
-              <h2 className="display-5 fw-bold mb-4">Craving something specific? We've got you covered.</h2>
-              <p className="lead mb-4 opacity-75">
-                From comfort food to gourmet experiences, our diverse selection 
-                satisfies every palate. Customize your order for the perfect meal.
-              </p>
-              <div className="d-flex flex-wrap gap-3 mb-4">
-                {['Italian', 'Asian', 'Mexican', 'Vegetarian', 'Vegan', 'Gluten-Free'].map((cuisine, i) => (
-                  <span key={i} className="badge bg-white bg-opacity-10 rounded-pill px-3 py-2">
-                    {cuisine}
-                  </span>
-                ))}
-              </div>
-              <Link href="checkout" className="btn btn-light btn-lg px-4 rounded-pill shadow-sm fw-bold">
-                Order Now <i className="fas fa-arrow-right ms-2"></i>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section - Animated Counters */}
-      <section className="stats-section gap">
-        <div className="container">
-          <div className="row g-4 text-center">
-            <div className="col-md-3 col-6" data-aos="fade-up">
-              <div className="p-4 rounded-4 bg-light shadow-sm">
-                <h3 className="display-4 fw-bold text-primary mb-2">
-                  <span className="counter" data-target="976">0</span>+
-                </h3>
-                <p className="text-muted mb-0">Satisfied Customers</p>
+            <div
+              className="col-lg-4 col-md-6 col-sm-12"
+              data-aos="flip-up"
+              data-aos-delay={300}
+              data-aos-duration={400}
+            >
+              <div className="work-card">
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/Illustration-2.png" />
+                <h4>
+                  <span>02</span> Select menu
+                </h4>
+                <p>
+                  Eu mi bibendum neque egestas congue quisque. Nulla facilisi
+                  morbi tempus iaculis urna id volutpat lacus. Odio ut sem nulla
+                  pharetra diam sit amet.
+                </p>
               </div>
             </div>
-            <div className="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
-              <div className="p-4 rounded-4 bg-light shadow-sm">
-                <h3 className="display-4 fw-bold text-success mb-2">
-                  <span className="counter" data-target="12">0</span>
-                </h3>
-                <p className="text-muted mb-0">Premium Restaurants</p>
-              </div>
-            </div>
-            <div className="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
-              <div className="p-4 rounded-4 bg-light shadow-sm">
-                <h3 className="display-4 fw-bold text-danger mb-2">
-                  <span className="counter" data-target="1">0</span>k+
-                </h3>
-                <p className="text-muted mb-0">Meals Delivered</p>
-              </div>
-            </div>
-            <div className="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
-              <div className="p-4 rounded-4 bg-light shadow-sm">
-                <h3 className="display-4 fw-bold text-warning mb-2">
-                  <span className="counter" data-target="30">0</span>min
-                </h3>
-                <p className="text-muted mb-0">Average Delivery</p>
+            <div
+              className="col-lg-4 col-md-6 col-sm-12"
+              data-aos="flip-up"
+              data-aos-delay={400}
+              data-aos-duration={500}
+            >
+              <div className="work-card">
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/illustration-3.png" />
+                <h4>
+                  <span>03</span> Wait for delivery
+                </h4>
+                <p>
+                  Nunc lobortis mattis aliquam faucibus. Nibh ipsum consequat
+                  nisl vel pretium lectus quam id leo. A scelerisque purus
+                  semper eget. Tincidunt arcu non.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Testimonials - Modern Carousel */}
-      <section className="testimonials-section gap bg-light">
+      {/* best-restaurants */}
+      <section
+        className="best-restaurants gap"
+        style={{ background: "#fcfcfc" }}
+      >
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
-              <div className="pe-lg-5">
-                <h2 className="display-5 fw-bold mb-4">What Our Customers Say</h2>
-                <div className="testimonial-carousel">
-                  <Swiper {...sliderProps.index1Testmoninal}>
-                    {[1, 2, 3].map((item) => (
-                      <SwiperSlide key={item}>
-                        <div className="bg-white p-4 rounded-4 shadow-sm mb-4">
-                          <div className="d-flex align-items-center mb-3">
-                            {[...Array(5)].map((_, i) => (
-                              <i key={i} className="fas fa-star text-warning me-1"></i>
-                            ))}
-                          </div>
-                          <p className="lead mb-4">
-                            "The food arrived hot and exactly as ordered. The delivery was faster than expected, 
-                            and everything tasted amazing. Will definitely order again!"
-                          </p>
-                          <div className="d-flex align-items-center">
-                            <img 
-                              src="https://randomuser.me/api/portraits/women/44.jpg" 
-                              alt="Customer" 
-                              className="rounded-circle me-3" 
-                              width="50" 
-                              height="50"
-                            />
-                            <div>
-                              <h6 className="mb-0 fw-bold">Sarah Johnson</h6>
-                              <small className="text-muted">Regular Customer</small>
-                            </div>
-                          </div>
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
+            <div
+              className="col-lg-6"
+              data-aos="flip-up"
+              data-aos-delay={200}
+              data-aos-duration={300}
+            >
+              <div className="city-restaurants">
+                <h2>12 Best Restaurants in Your City</h2>
+                <p>
+                  Magna sit amet purus gravida quis blandit turpis cursus.
+                  Venenatis tellus in metus vulputate.
+                </p>
               </div>
             </div>
-            <div className="col-lg-6" data-aos="fade-left">
-              <div className="position-relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                  alt="Happy customer" 
-                  className="img-fluid rounded-4 shadow-lg" 
-                />
-                <div className="position-absolute bottom-0 start-0 bg-white p-3 rounded-3 shadow-sm m-3 d-flex align-items-center">
-                  <div className="bg-primary p-2 rounded-3 me-2">
-                    <i className="fas fa-thumbs-up text-white"></i>
-                  </div>
+            <div
+              className="col-lg-6"
+              data-aos="flip-up"
+              data-aos-delay={300}
+              data-aos-duration={400}
+            >
+              <div className="logos-card">
+                <img alt="logo" src="https://quickeat-react.vercel.app/assets/img/logos-2.jpg" />
+                <div className="cafa">
+                  <h4>
+                    <Link href="restaurant-card">Kennington Lane Cafe</Link>
+                  </h4>
                   <div>
-                    <h6 className="mb-0 fw-bold">98% Satisfaction</h6>
-                    <small className="text-muted">Based on 500+ reviews</small>
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-regular fa-star" />
                   </div>
+                  <div className="cafa-button">
+                    {" "}
+                    <a href="#">american</a> <a href="#">steakhouse</a>{" "}
+                    <a className="end" href="#">
+                      seafood
+                    </a>
+                  </div>
+                  <p>
+                    Non enim praesent elementum facilisis leo vel fringilla.
+                    Lectus proin nibh nisl condimentum id. Quis varius quam
+                    quisque id diam vel.
+                  </p>
                 </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-6"
+              data-aos="flip-up"
+              data-aos-delay={400}
+              data-aos-duration={500}
+            >
+              <div className="logos-card two">
+                <img alt="logo" src="https://quickeat-react.vercel.app/assets/img/logos-1.jpg" />
+                <div className="cafa">
+                  <h4>
+                    <Link href="restaurant-card">The Wilmington</Link>
+                  </h4>
+                  <div>
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                  </div>
+                  <div className="cafa-button">
+                    {" "}
+                    <a href="#">american</a> <a href="#">steakhouse</a>{" "}
+                    <a className="end" href="#">
+                      seafood
+                    </a>
+                  </div>
+                  <p>
+                    Vulputate enim nulla aliquet porttitor lacus luctus.
+                    Suscipit adipiscing bibendum est ultricies integer. Sed
+                    adipiscing diam donec adipiscing tristique.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-6"
+              data-aos="flip-up"
+              data-aos-delay={500}
+              data-aos-duration={600}
+            >
+              <div className="logos-card three">
+                <img alt="logo" src="https://quickeat-react.vercel.app/assets/img/logos-1.jpg" />
+                <div className="cafa">
+                  <h4>
+                    <Link href="restaurant-card">Kings Arms</Link>
+                  </h4>
+                  <div>
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-solid fa-star" />
+                    <i className="fa-regular fa-star-half-stroke" />
+                  </div>
+                  <div className="cafa-button">
+                    {" "}
+                    <a href="#">healthy</a> <a href="#">steakhouse</a>{" "}
+                    <a className="end" href="#">
+                      vegetarian
+                    </a>
+                  </div>
+                  <p>
+                    Tortor at risus viverra adipiscing at in tellus. Cras semper
+                    auctor neque vitae tempus. Dui accumsan sit amet nulla
+                    facilisi. Sed adipiscing diam donec adipiscing tristique.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="button-gap">
+            <Link href="restaurants" className="button button-2 non">
+              See All
+              <i className="fa-solid fa-arrow-right" />
+            </Link>
+          </div>
+        </div>
+      </section>
+      {/* your-favorite-food */}
+      <section
+        className="your-favorite-food gap"
+        style={{ backgroundImage: "url(assets/img/background-1.png)" }}
+      >
+        <div className="container">
+          <div className="row align-items-center">
+            <div
+              className="col-lg-5"
+              data-aos="fade-up"
+              data-aos-delay={200}
+              data-aos-duration={300}
+            >
+              <div className="food-photo-section">
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/photo-4.png" />{" "}
+                <a href="#" className="one">
+                  <i className="fa-solid fa-burger" />
+                  Burgers
+                </a>{" "}
+                <a href="#" className="two">
+                  <i className="fa-solid fa-cheese" />
+                  Steaks
+                </a>{" "}
+                <a href="#" className="three">
+                  <i className="fa-solid fa-pizza-slice" />
+                  Pizza
+                </a>
+              </div>
+            </div>
+            <div
+              className="col-lg-6 offset-lg-1"
+              data-aos="fade-up"
+              data-aos-delay={300}
+              data-aos-duration={400}
+            >
+              <div className="food-content-section">
+                <h2>Food from your favorite restaurants to your table</h2>
+                <p>
+                  Pretium lectus quam id leo in vitae turpis massa sed. Lorem
+                  donec massa sapien faucibus et molestie. Vitae elementum
+                  curabitur vitae nunc.
+                </p>{" "}
+                <Link href="checkout" className="button button-2">
+                  Order Now
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* CTA Section - Partnership */}
-      <section className="partnership-section gap bg-dark text-white">
+      {/* counters-section */}
+      <section className="counters-section">
         <div className="container">
-          <h2 className="display-5 fw-bold text-center mb-5">Want to Join Our Network?</h2>
-          <div className="row g-4">
-            <div className="col-md-6" data-aos="zoom-in">
-              <div className="card border-0 overflow-hidden h-100">
-                <img 
-                  src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                  alt="Courier" 
-                  className="card-img-top object-fit-cover" 
-                  style={{height: '200px'}}
-                />
-                <div className="card-body">
-                  <h3 className="card-title fw-bold">Become a Courier</h3>
-                  <p className="card-text mb-4">
-                    Earn money on your schedule with flexible delivery opportunities.
-                  </p>
-                  <Link href="become-partner" className="btn btn-outline-light rounded-pill">
-                    Learn More <i className="fas fa-arrow-right ms-2"></i>
-                  </Link>
-                </div>
+          <div className="row align-items-center">
+            <div
+              className="col-lg-3 col-md-6 col-sm-12"
+              data-aos="flip-up"
+              data-aos-delay={200}
+              data-aos-duration={300}
+            >
+              <div>
+                <h2>Service shows good taste.</h2>
               </div>
             </div>
-            <div className="col-md-6" data-aos="zoom-in" data-aos-delay="100">
-              <div className="card border-0 overflow-hidden h-100">
-                <img 
-                  src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                  alt="Restaurant" 
-                  className="card-img-top object-fit-cover" 
-                  style={{height: '200px'}}
-                />
-                <div className="card-body">
-                  <h3 className="card-title fw-bold">Partner Your Restaurant</h3>
-                  <p className="card-text mb-4">
-                    Grow your business by reaching new customers in your area.
-                  </p>
-                  <Link href="become-partner" className="btn btn-outline-light rounded-pill">
-                    Learn More <i className="fas fa-arrow-right ms-2"></i>
-                  </Link>
-                </div>
+            <div
+              className="col-lg-3 col-md-6 col-sm-12"
+              data-aos="flip-up"
+              data-aos-delay={300}
+              data-aos-duration={400}
+            >
+              <div className="count-time">
+                <h2
+                  className="timer count-title count-number"
+                  data-to={976}
+                  data-speed={2000}
+                >
+                  976
+                </h2>
+                <p>
+                  Satisfied
+                  <br />
+                  Customer
+                </p>
+              </div>
+            </div>
+            <div
+              className="col-lg-3 col-md-6 col-sm-12"
+              data-aos="flip-up"
+              data-aos-delay={400}
+              data-aos-duration={500}
+            >
+              <div className="count-time">
+                <h2
+                  className="timer count-title count-number"
+                  data-to={12}
+                  data-speed={2000}
+                >
+                  12
+                </h2>
+                <p>
+                  Best
+                  <br />
+                  Restaurants
+                </p>
+              </div>
+            </div>
+            <div
+              className="col-lg-3 col-md-6 col-sm-12"
+              data-aos="flip-up"
+              data-aos-delay={500}
+              data-aos-duration={600}
+            >
+              <div className="count-time sp">
+                <h2
+                  className="timer count-title count-number"
+                  data-to={1}
+                  data-speed={2000}
+                >
+                  1
+                </h2>
+                <span>k+</span>
+                <p>
+                  Food
+                  <br />
+                  Delivered
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Blog Section - Latest News */}
-      <section className="blog-section gap">
+      {/* reviews-sections */}
+      <section className="reviews-sections gap">
         <div className="container">
-          <h2 className="display-5 fw-bold text-center mb-5">Latest News & Updates</h2>
-          <div className="row g-4">
-            <div className="col-lg-6" data-aos="fade-up">
-              <div className="card border-0 overflow-hidden h-100 shadow-sm">
-                <div className="position-relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                    alt="News" 
-                    className="card-img-top object-fit-cover" 
-                    style={{height: '300px'}}
-                  />
-                  <div className="position-absolute top-0 start-0 m-3">
-                    <span className="badge bg-primary bg-opacity-90 text-white">News</span>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div className="d-flex align-items-center mb-3">
-                    <small className="text-muted me-3">
-                      <i className="far fa-calendar me-1"></i> Jan 15, 2023
-                    </small>
-                    <small className="text-muted">
-                      <i className="far fa-eye me-1"></i> 245 views
-                    </small>
-                  </div>
-                  <h3 className="card-title fw-bold mb-3">
-                    We've Been Recognized for Excellence in Food Delivery
-                  </h3>
-                  <p className="card-text mb-4">
-                    Our commitment to quality and service has earned us industry recognition 
-                    as a leader in food delivery innovation.
-                  </p>
-                  <Link href="/single-blog" className="btn btn-sm btn-outline-primary rounded-pill">
-                    Read More <i className="fas fa-arrow-right ms-2"></i>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <div className="row g-4">
-                {[
-                  {
-                    title: "New Feature: Voice Ordering Now Available",
-                    excerpt: "Order your favorite meals hands-free with our new voice command feature.",
-                    image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                    date: "Jan 10, 2023",
-                    views: "189"
-                  },
-                  {
-                    title: "127+ Couriers On Our Team and Growing",
-                    excerpt: "Our delivery network continues to expand to serve you better and faster.",
-                    image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                    date: "Jan 5, 2023",
-                    views: "156"
-                  },
-                  {
-                    title: "Optimizing Your Menu for Delivery Success",
-                    excerpt: "Tips for restaurants to create delivery-friendly menus that travel well.",
-                    image: "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                    date: "Dec 28, 2022",
-                    views: "203"
-                  }
-                ].map((post, index) => (
-                  <div key={index} className="col-12">
-                    <div className="card border-0 shadow-sm h-100">
-                      <div className="row g-0">
-                        <div className="col-md-4">
-                          <img 
-                            src={post.image} 
-                            alt={post.title} 
-                            className="img-fluid h-100 object-fit-cover rounded-start"
-                          />
-                        </div>
-                        <div className="col-md-8">
-                          <div className="card-body">
-                            <div className="d-flex align-items-center mb-2">
-                              <small className="text-muted me-3">
-                                <i className="far fa-calendar me-1"></i> {post.date}
-                              </small>
-                              <small className="text-muted">
-                                <i className="far fa-eye me-1"></i> {post.views} views
-                              </small>
-                            </div>
-                            <h5 className="card-title fw-bold mb-2">{post.title}</h5>
-                            <p className="card-text text-muted small mb-3">{post.excerpt}</p>
-                            <Link href="/single-blog" className="btn btn-sm btn-link px-0">
-                              Read More <i className="fas fa-arrow-right ms-2"></i>
-                            </Link>
-                          </div>
+          <div className="row align-items-center">
+            <div
+              className="col-xl-6 col-lg-12"
+              data-aos="fade-up"
+              data-aos-delay={200}
+              data-aos-duration={300}
+            >
+              <div className="reviews-content">
+                <h2>What customers say about us</h2>
+                <div className="custome owl-carousel">
+                  <Swiper {...sliderProps.index1Testmoninal}>
+                    <SwiperSlide className="item">
+                      <h4>
+                        "Dapibus ultrices in iaculis nunc sed augue lacus
+                        viverra vitae. Mauris a diam maecenas sed enim. Egestas
+                        diam in arcu cursus euismod quis. Quam quisque id diam
+                        vel".
+                      </h4>
+                      <div className="thomas">
+                        <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-5.jpg" />
+                        <div>
+                          <h6>Thomas Adamson</h6>
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
                         </div>
                       </div>
-                    </div>
+                    </SwiperSlide>
+                    <SwiperSlide className="item">
+                      <h4>
+                        "Dapibus ultrices in iaculis nunc sed augue lacus
+                        viverra vitae. Mauris a diam maecenas sed enim. Egestas
+                        diam in arcu cursus euismod quis. Quam quisque id diam
+                        vel".
+                      </h4>
+                      <div className="thomas">
+                        <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-5.jpg" />
+                        <div>
+                          <h6>Thomas Adamson</h6>
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                    <SwiperSlide className="item">
+                      <h4>
+                        "Dapibus ultrices in iaculis nunc sed augue lacus
+                        viverra vitae. Mauris a diam maecenas sed enim. Egestas
+                        diam in arcu cursus euismod quis. Quam quisque id diam
+                        vel".
+                      </h4>
+                      <div className="thomas">
+                        <img alt="girl" src="https://quickeat-react.vercel.app/assets/img/photo-5.jpg" />
+                        <div>
+                          <h6>Thomas Adamson</h6>
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                          <i className="fa-solid fa-star" />
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  </Swiper>
+                  <div className="owl-nav mt-4">
+                    <button className="owl-prev">
+                      <i className="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button className="owl-next ms-3">
+                      <i className="fa-solid fa-arrow-right"></i>
+                    </button>
                   </div>
-                ))}
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-xl-6 col-lg-12"
+              data-aos="fade-up"
+              data-aos-delay={300}
+              data-aos-duration={400}
+            >
+              <div className="reviews-img">
+                <img alt="photo" src="https://quickeat-react.vercel.app/assets/img/photo-4.png" />
+                <i className="fa-regular fa-thumbs-up" />
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Newsletter Subscription */}
+      {/* join-partnership */}
+      <section
+        className="join-partnership gap"
+        style={{ backgroundColor: "#363636" }}
+      >
+        <div className="container">
+          <h2>Want to Join Partnership?</h2>
+          <div className="row">
+            <div
+              className="col-lg-6"
+              data-aos="flip-up"
+              data-aos-delay={200}
+              data-aos-duration={300}
+            >
+              <div className="join-img">
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/photo-6.jpg" />
+                <div className="Join-courier">
+                  <h3>Join Courier</h3>
+                  <Link href="become-partner" className="button button-2">
+                    Learn More <i className="fa-solid fa-arrow-right" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-lg-6"
+              data-aos="flip-up"
+              data-aos-delay={300}
+              data-aos-duration={400}
+            >
+              <div className="join-img">
+                <img alt="img" src="https://quickeat-react.vercel.app/assets/img/photo-7.jpg" />
+                <div className="Join-courier">
+                  <h3>Join Merchant</h3>
+                  <Link href="become-partner" className="button button-2">
+                    Learn More <i className="fa-solid fa-arrow-right" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* news-section */}
+      <section className="news-section gap">
+        <div className="container">
+          <h2>Latest news and events</h2>
+          <div className="row">
+            <div
+              className="col-xl-6 col-lg-12"
+              data-aos="flip-up"
+              data-aos-delay={200}
+              data-aos-duration={300}
+            >
+              <div className="news-posts-one">
+                <img alt="man" src="https://quickeat-react.vercel.app/assets/img/photo-8.jpg" />
+                <div className="quickeat">
+                  {" "}
+                  <a href="#">news</a> <a href="#">VoiceToByte</a>
+                </div>
+                <h3>We Have Received An Award For The Quality Of Our Work</h3>
+                <p>
+                  Donec adipiscing tristique risus nec feugiat in fermentum.
+                  Sapien eget mi proin sed libero. Et magnis dis parturient
+                  montes nascetur. Praesent semper feugiat nibh sed pulvinar
+                  proin gravida.
+                </p>{" "}
+                <Link href="/single-blog">
+                  Read More
+                  <i className="fa-solid fa-arrow-right" />
+                </Link>
+                <ul className="data">
+                  <li>
+                    <h6>
+                      <i className="fa-solid fa-user" />
+                      by VoiceToByte
+                    </h6>
+                  </li>
+                  <li>
+                    <h6>
+                      <i className="fa-regular fa-calendar-days" />
+                      01.Jan. 2022
+                    </h6>
+                  </li>
+                  <li>
+                    <h6>
+                      <i className="fa-solid fa-eye" />
+                      132
+                    </h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              className="col-xl-6 col-lg-12"
+              data-aos="flip-up"
+              data-aos-delay={300}
+              data-aos-duration={400}
+            >
+              <div className="news-post-two">
+                <img alt="food-img" src="https://quickeat-react.vercel.app/assets/img/food-1.jpg" />
+                <div className="news-post-two-data">
+                  <div className="quickeat">
+                    {" "}
+                    <a href="#">restaurants</a> <a href="#">cooking</a>
+                  </div>
+                  <h6>
+                    <Link href="single-blog">
+                      With VoiceToByte you can order food for the whole day
+                    </Link>
+                  </h6>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor...
+                  </p>
+                  <ul className="data">
+                    <li>
+                      <h6>
+                        <i className="fa-solid fa-user" />
+                        by VoiceToByte
+                      </h6>
+                    </li>
+                    <li>
+                      <h6>
+                        <i className="fa-regular fa-calendar-days" />
+                        01.Jan. 2022
+                      </h6>
+                    </li>
+                    <li>
+                      <h6>
+                        <i className="fa-solid fa-eye" />
+                        132
+                      </h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="news-post-two">
+                <img alt="food-img" src="https://quickeat-react.vercel.app/assets/img/food-1.jpg" />
+                <div className="news-post-two-data">
+                  <div className="quickeat">
+                    {" "}
+                    <a href="#">restaurants</a> <a href="#">cooking</a>
+                  </div>
+                  <h6>
+                    <Link href="single-blog">127+ Couriers On Our Team!</Link>
+                  </h6>
+                  <p>
+                    Urna condimentum mattis pellentesque id nibh tortor id
+                    aliquet. Tellus at urna condimentum mattis...
+                  </p>
+                  <ul className="data">
+                    <li>
+                      <h6>
+                        <i className="fa-solid fa-user" />
+                        by VoiceToByte
+                      </h6>
+                    </li>
+                    <li>
+                      <h6>
+                        <i className="fa-regular fa-calendar-days" />
+                        01.Jan. 2022
+                      </h6>
+                    </li>
+                    <li>
+                      <h6>
+                        <i className="fa-solid fa-eye" />
+                        132
+                      </h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="news-post-two end">
+                <img alt="food-img" src="https://quickeat-react.vercel.app/assets/img/food-3.jpg" />
+                <div className="news-post-two-data">
+                  <div className="quickeat">
+                    {" "}
+                    <a href="#">restaurants</a> <a href="#">cooking</a>
+                  </div>
+                  <h6>
+                    <Link href="single-blog">
+                      Why You Should Optimize Your Menu for Delivery
+                    </Link>
+                  </h6>
+                  <p>
+                    Enim lobortis scelerisque fermentum dui. Sit amet cursus sit
+                    amet dictum sit amet. Rutrum tellus...
+                  </p>
+                  <ul className="data">
+                    <li>
+                      <h6>
+                        <i className="fa-solid fa-user" />
+                        by VoiceToByte
+                      </h6>
+                    </li>
+                    <li>
+                      <h6>
+                        <i className="fa-regular fa-calendar-days" />
+                        01.Jan. 2022
+                      </h6>
+                    </li>
+                    <li>
+                      <h6>
+                        <i className="fa-solid fa-eye" />
+                        132
+                      </h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* subscribe-section */}
       <Subscribe />
-
-      {/* Add this script for counter animation */}
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          document.addEventListener('DOMContentLoaded', () => {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200;
-            
-            counters.forEach(counter => {
-              const target = +counter.getAttribute('data-target');
-              const count = +counter.innerText;
-              const increment = target / speed;
-              
-              if (count < target) {
-                counter.innerText = Math.ceil(count + increment);
-                setTimeout(() => {
-                  counter.innerText = target;
-                }, speed);
-              } else {
-                counter.innerText = target;
-              }
-            });
-          });
-        `
-      }} />
     </Layout>
   );
 };
-
 export default Index;
