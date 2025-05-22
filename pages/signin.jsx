@@ -3,20 +3,105 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { config } from '@/data/axiosData';
+import {  showErrorToast, showSuccessToast } from '@/src/components/Toast';
+import { signInSuccess } from '@/redux/reducers/userslice';
+
 
 export default function Signin() {
-
+  const dispatch=useDispatch();
+  
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [photoUrl, setPhotoUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handlePhotoUpload = () => {
+    setPhotoUrl("https://example.com/photos/user1.jpg");
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API call
+    
+    const userData = isLogin 
+      ? { email, password }
+      : { 
+          name, 
+          email, 
+          password, 
+          address: "123 Main Street, Jaipur", 
+          photoUrl: "https://example.com/photos/user1.jpg" 
+        };
+    
+    console.log("Submitting:", userData);
+    
+    if (isLogin) {
+  
+      try {
+        const res = await axios.post(
+          "http://localhost:4000/api/login",
+          {
+            email,
+            password
+          },
+          config
+        );
+        console.log("res :",res);
+        const { message, success, tokenData } = res.data;
+        
+        if (success) {
+          console.log("Login successful:", message);
+          showSuccessToast("Login successful!");
+          dispatch(signInSuccess(tokenData));
+          router.push("/");
+        } else {
+          console.log("Login failed:", message);
+          showErrorToast(message || "Invalid email or password");
+        }
+      } catch (error) {
+        console.error("Login error:", error.response?.data?.message || error.message);
+        showErrorToast(error.response?.data?.message || "Login failed. Please try again.");
+      }
+    } else {
+   
+      try {
+        const res = await axios.post(
+          "http://localhost:4000/api/registerCustomer",
+          {
+            address,
+            photoUrl,
+            email,
+            password,
+            name
+          },
+          config
+        );
+        
+        const { message, success, tokenData } = res.data;
+        
+        if (success) {
+          console.log("Registration successful:", message);
+          showSuccessToast(message || "Registration successful!");
+          dispatch(signInSuccess(tokenData));
+          router.push("/");
+        } else {
+          console.log("Registration failed:", message);
+          showErrorToast(message || "Error in registering the customer");
+        }
+      } catch (error) {
+        console.error("Registration error:", error.response?.data?.message || error.message);
+        showErrorToast(error.response?.data?.message || "Registration failed. Please try again.");
+      }
+    }
+
+
     setTimeout(() => {
       setLoading(false);
       router.push('/');
@@ -34,7 +119,7 @@ export default function Signin() {
           <div className="row justify-content-center">
             <div className="col-lg-6 col-md-8">
               <div className="auth-card shadow-lg rounded-4 overflow-hidden">
-                {/* Brand Header */}
+           
                 <div className="auth-header text-center py-4" data-aos="fade-down">
                   <Link href="/" className="d-inline-block mb-3 no-underline">
                     <svg
@@ -112,18 +197,49 @@ export default function Signin() {
                 <div className="auth-body px-4 py-3" data-aos="fade-up">
                   <form onSubmit={handleSubmit}>
                     {!isLogin && (
-                      <div className="mb-3" data-aos="fade-up" data-aos-delay="100">
-                        <label htmlFor="name" className="form-label">Full Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="name"
-                          placeholder="John Doe"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          required
-                        />
-                      </div>
+                      <>
+                        <div className="mb-3" data-aos="fade-up" data-aos-delay="100">
+                          <label htmlFor="name" className="form-label">Full Name</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="name"
+                            placeholder="John Doe"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div className="mb-3" data-aos="fade-up" data-aos-delay="110">
+                          <label htmlFor="address" className="form-label">Address</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="address"
+                            placeholder="123 Main Street, Jaipur"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div className="mb-3" data-aos="fade-up" data-aos-delay="120">
+                          <label className="form-label">Profile Photo</label>
+                          <div className="d-flex align-items-center">
+                            <button
+                              type="button"
+                              className="btn btn-outline-secondary me-3"
+                              onClick={handlePhotoUpload}
+                            >
+                              Upload Photo
+                            </button>
+                            {photoUrl && (
+                              <small className="text-muted">Photo selected (placeholder)</small>
+                            )}
+                          </div>
+                        </div>
+                      </>
                     )}
 
                     <div className="mb-3" data-aos="fade-up" data-aos-delay="150">

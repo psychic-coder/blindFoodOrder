@@ -2,14 +2,18 @@ import Link from "next/link";
 import { useState } from "react";
 import CheckoutFuntion from "../components/CheckoutFuntion";
 import MobileMenu from "./MobileMenu";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const Header = ({ extraClass }) => {
+  const router = useRouter();
   const onClick = (e) => {
     const body = document.querySelector("body");
     body.classList.toggle("active");
     e.preventDefault();
   };
-  // mobile menu
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser);
   const [mobileToggle, setMobileToggle] = useState(false);
   return (
     <header className={extraClass}>
@@ -164,11 +168,14 @@ const Header = ({ extraClass }) => {
               >
                 <i className="fa-solid fa-bag-shopping" />
               </a>
-              <Link href="signin" className="button button-2 me-2">
+              <div className="button button-2 me-2">
                 {" "}
-                {/* ← Added me-2 here */}
-                SignIn
-              </Link>
+                {currentUser ? (
+                  <div onClick={() => router.push("/profile")}>Profile</div>
+                ) : (
+                  <div onClick={() => router.push("/signin")}>Signin</div>
+                )}
+              </div>
               <Link href="checkout" className="button button-2">
                 Order
               </Link>
