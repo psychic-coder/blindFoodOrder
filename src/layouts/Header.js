@@ -13,7 +13,6 @@ const Header = ({ extraClass }) => {
     e.preventDefault();
   };
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
   const [mobileToggle, setMobileToggle] = useState(false);
   return (
     <header className={extraClass}>

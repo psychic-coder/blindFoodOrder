@@ -1,20 +1,48 @@
-import { restaurants } from "@/data/restaurants";
+// import { restaurants } from "@/data/restaurants";
 import Subscribe from "@/src/components/Subscribe";
 import VoiceInput from "@/src/components/VoiceInput";
 import Layout from "@/src/layouts/Layout";
 import { useRouter } from "next/router";
 
 import Link from "next/link";
+import axios from "axios";
+import { config } from "@/data/axiosData";
+import { useEffect, useState } from "react";
+import GetRestaurants from "@/src/components/GetRestaurants";
 const Restaurants = () => {
+  const [restaurants, setRestaurants] = useState([]);
   const router = useRouter();
-  const handleCardClick = (restaurantName) => {
-    const formattedName = restaurantName.toLowerCase().replace(/\s+/g, "");
-    router.push(`/restaurant-card?name=${encodeURIComponent(formattedName)}`);
-  };
-  
+  const [loading,setLoading]=useState(true)
+  const [error, setError] = useState(false);
+
+ 
+
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(
+          "http://localhost:4000/api/customer/getAllRestaurants",
+          config
+        );
+        
+        setRestaurants(res.data.restaurants);
+        setError(null);
+        console.log(res.data.restaurants);
+        console.log(res.data);
+      } catch (err) {
+        console.error("Failed to fetch restaurants:", err);
+        setError(err.response?.data?.message || err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRestaurants();
+  }, []); 
+
   return (
     <Layout>
-      {/* hero-section */}
       <section className="hero-section about gap">
         <div className="container">
           <div className="row align-items-center">
@@ -51,7 +79,10 @@ const Restaurants = () => {
               data-aos-duration={400}
             >
               <div className="restaurants-girl-img food-photo-section">
-                <img alt="man" src="https://quickeat-react.vercel.app/assets/img/photo-11.png" />{" "}
+                <img
+                  alt="man"
+                  src="https://quickeat-react.vercel.app/assets/img/photo-11.png"
+                />{" "}
                 <a href="#" className="one">
                   <i className="fa-solid fa-burger" />
                   Burgers
@@ -73,7 +104,7 @@ const Restaurants = () => {
           </div>
         </div>
       </section>
-      {/* banner */}
+
       <section
         className="banner"
         data-aos="fade-up"
@@ -83,7 +114,10 @@ const Restaurants = () => {
         <div className="container">
           <div
             className="banner-img"
-            style={{ backgroundImage: "url(https://quickeat-react.vercel.app/assets/img/food-4.jpg)" }}
+            style={{
+              backgroundImage:
+                "url(https://quickeat-react.vercel.app/assets/img/food-4.jpg)",
+            }}
           >
             <div className="banner-logo">
               <h4>
@@ -93,7 +127,10 @@ const Restaurants = () => {
                 <span className="chevron chevron--left" />
               </h4>
               <div className="banner-wilmington">
-                <img alt="logo" src="https://quickeat-react.vercel.app/assets/img/logo-s.jpg" />
+                <img
+                  alt="logo"
+                  src="https://quickeat-react.vercel.app/assets/img/logo-s.jpg"
+                />
                 <h6>The Wilmington</h6>
               </div>
             </div>
@@ -114,49 +151,9 @@ const Restaurants = () => {
       </section>
       {/* best-restaurants */}
       {/* best-restaurants */}
-      <section className="best-restaurants gap">
-        <div className="container">
-          <div className="row">
-            {restaurants.map((rest, index) => (
-              <div
-                key={rest.id}
-                className="col-lg-6"
-                data-aos="flip-up"
-                data-aos-delay={200 + index * 100}
-                data-aos-duration={300 + index * 100}
-              >
-                <div
-                  onClick={() => handleCardClick(rest.name)}
-                  className={`logos-card restaurant-page cursor-pointer transition-transform hover:scale-[1.01] ${index >= 2 ? 'two' : ''}`}
-                >
-                  <img alt="logo" src={rest.image} />
-                  <div className="cafa">
-                    <h4>{rest.name}</h4>
-                    <div>
-                      {Array.from({ length: 5 }).map((_, i) => {
-                        const fullStars = Math.floor(rest.rating);
-                        const halfStar = rest.rating % 1 >= 0.5;
 
-                        if (i < fullStars) return <i key={i} className="fa-solid fa-star" />;
-                        if (i === fullStars && halfStar) return <i key={i} className="fa-regular fa-star-half-stroke" />;
-                        return <i key={i} className="fa-regular fa-star" />;
-                      })}
-                    </div>
-                    <div className="cafa-button">
-                      {rest.tags.map((tag, i) => (
-                        <span key={i} className={i === rest.tags.length - 1 ? 'end' : ''}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <p>{rest.desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <GetRestaurants restaurants={restaurants} />
+
 
       {/* subscribe-section */}
       <Subscribe />
