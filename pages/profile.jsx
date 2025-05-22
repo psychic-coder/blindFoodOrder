@@ -9,10 +9,14 @@ const profile = () => {
     const {currentUser}=useSelector((state) => state.user)
   return (
     <ProtectedRoute>
-       { currentUser.user.role==="CUSTOMER" && <CustomerProfile/>}
-       { currentUser.user.role==="COMPANY_ADMIN" && <CompanyAdminProfile/>}
-       { currentUser.user.role==="HOTEL_ADMIN" && <HotelAdminProfile/>}
-    </ProtectedRoute>
+  {currentUser && currentUser.user && (
+    <>
+      {currentUser.user.role === "CUSTOMER" && <CustomerProfile/>}
+      {currentUser.user.role === "COMPANY_ADMIN" && <CompanyAdminProfile/>}
+      {currentUser.user.role === "HOTEL_ADMIN" && <HotelAdminProfile/>}
+    </>
+  )}
+</ProtectedRoute>
   )
 }
 
