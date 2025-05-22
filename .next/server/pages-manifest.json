@@ -3,5 +3,6 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/restaurant-card": "pages/restaurant-card.js",
+  "/restaurants": "pages/restaurants.js",
   "/contacts": "pages/contacts.js"
 }

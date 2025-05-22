@@ -14,13 +14,13 @@ const CartSidebar = ({
     <>
       {showCart && (
         <div className="position-fixed top-0 end-0 h-100 w-100" style={{ zIndex: 1050 }}>
-          {/* Overlay */}
+         
           <div 
             className="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"
             onClick={() => setShowCart(false)}
           />
           
-          {/* Sidebar Content */}
+          
           <motion.div 
             className="position-absolute top-0 end-0 h-100 bg-white shadow-lg"
             style={{ width: '400px', maxWidth: '100%' }}
