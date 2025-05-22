@@ -1,0 +1,19 @@
+import CompanyAdminProfile from '@/src/components/CompanyAdminProfile'
+import CustomerProfile from '@/src/components/CustomerProfile'
+import HotelAdminProfile from '@/src/components/HotelAdminProfile'
+import ProtectedRoute from '@/src/components/ProtectedProfileRoute'
+import React from 'react'
+import { useSelector } from 'react-redux'
+
+const profile = () => {
+    const {currentUser}=useSelector((state) => state.user)
+  return (
+    <ProtectedRoute>
+       { currentUser.user.role==="CUSTOMER" && <CustomerProfile/>}
+       { currentUser.user.role==="COMPANY_ADMIN" && <CompanyAdminProfile/>}
+       { currentUser.user.role==="HOTEL_ADMIN" && <HotelAdminProfile/>}
+    </ProtectedRoute>
+  )
+}
+
+export default profile
