@@ -3,10 +3,7 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/restaurants": "pages/restaurants.js",
-  "/": "pages/index.js",
-  "/404": "pages/404.js",
-  "/restaurant-card": "pages/restaurant-card.js",
   "/contacts": "pages/contacts.js",
-  "/profile": "pages/profile.js",
+  "/404": "pages/404.js",
   "/about": "pages/about.js"
 }
