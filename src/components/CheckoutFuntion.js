@@ -1,86 +1,130 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { config } from "@/data/axiosData";
+import { 
+  updateQuantity, 
+  deleteOrder, 
+  completeOrders
+} from "@/redux/reducers/orderSlice"; 
 
-const CheckoutFuntion = ({ sidebar }) => {
-  const [cartData, setCartData] = useState([
-    {
-      id: 1,
-      image: "/assets/img/order-1.png",
-      title: "Egg, kiwi and sauce chilli",
-      tags: ["breakfast", "brunch"],
-      price: 39,
-      quantity: 1,
-      category: ["breakfast", "lunch", "dinner"],
-    },
-    {
-      id: 2,
-      image: "/assets/img/order-2.png",
-      title: "Potatoes with pork and dried fruits",
-      tags: ["breakfast", "brunch"],
-      price: 49,
-      quantity: 1,
-      category: ["breakfast", "dinner"],
-    },
-  ]);
-  // total price
+const CheckoutFunction = ({ sidebar }) => {
+  const dispatch = useDispatch();
+  const { orders } = useSelector((state) => state.order);
+  const { currentUser } = useSelector((state) => state.user);
+  
   const [subTotal, setSubTotal] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    setSubTotal(subTotal_());
-    setTotalPrice(Number(subTotal_()).toFixed(2));
-    localStorage.setItem(
-      "munfirm",
-      JSON.stringify({ subTotal, totalPrice, cartData })
-    );
-  });
+    if (orders && orders.length > 0) {
+      const newSubTotal = orders
+        .map(item => item.itemPrice * item.quantity)
+        .reduce((prev, next) => prev + next, 0)
+        .toFixed(2);
+      
+      setSubTotal(newSubTotal);
+      setTotalPrice(newSubTotal);
+    }
+  }, [orders]);
 
-  const subTotal_ = () => {
-    return cartData
-      .map((item) => item.price * item.quantity)
-      .reduce((prev, next) => prev + next, 0)
-      .toFixed(2);
+  const handleUpdateQuantity = (itemId, type, value) => {
+    const item = orders.find(item => item.itemId === itemId);
+    if (!item) return;
+
+    let newQuantity = item.quantity;
+    
+    if (type === "-") {
+      newQuantity = Math.max(1, item.quantity - 1);
+    } else if (type === "+") {
+      newQuantity = item.quantity + 1;
+    } else if (type === "value") {
+      newQuantity = Math.max(1, value);
+    }
+
+    dispatch(updateQuantity({ itemId, quantity: newQuantity }));
   };
 
-  const updateQuantity = (item, type, value) => {
-    let findCartItem = cartData.find((cart, i) => i === item);
-    findCartItem.quantity =
-      type == "-"
-        ? findCartItem.quantity === 1
-          ? 1
-          : findCartItem.quantity - 1
-        : type == "+"
-        ? findCartItem.quantity + 1
-        : value;
-    setCartData([...cartData]);
+  const handleRemoveItem = (itemId) => {
+    dispatch(deleteOrder(itemId));
   };
+
+  const placeOrder = async () => {
+    if (!orders || orders.length === 0) {
+      setError("No items in cart");
+      return;
+    }
+
+    if (!currentUser) {
+      setError("User not logged in");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const orderData = {
+        items: orders.map(item => ({
+          foodItemId: item.itemId,
+          quantity: item.quantity
+        })),
+        restaurantId: orders[0].restaurantId 
+      };
+
+      const response = await axios.post(
+        `http://localhost:3000/customer/placeOrder`,
+        orderData,
+        config
+      );
+
+      // Clear cart and mark as completed on success
+      dispatch(completeOrders());
+      setOrderSuccess(true);
+     
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to place order");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (!orders || orders.length === 0) {
+    return <div className="checkout-order">Your cart is empty</div>;
+  }
+
   return (
     <div className="checkout-order">
       <div className="title-checkout">
         <h2>Your order:</h2>
-        {!sidebar && <h6>{cartData.length}</h6>}
+        {!sidebar && <h6>{orders.length}</h6>}
       </div>
+      
       <div className="banner-wilmington">
-        <img alt="logo" src="assets/img/logo-s.jpg" />
-        <h6>Kennington Lane Cafe</h6>
+        <img alt="logo" src="https://quickeat-react.vercel.app/assets/img/logo-s.jpg" />
+        <h6>Restaurant ID: {orders[0].restaurantId}</h6>
       </div>
+
       <ul>
-        {cartData.map((item, i) => (
-          <li className="price-list" key={item.id}>
+        {orders.map((item, i) => (
+          <li className="price-list" key={`${item.itemId}-${i}`}>
             <i
               className="closeButton fa-solid fa-xmark"
-              onClick={() =>
-                setCartData(cartData.filter((c) => c.id !== item.id))
-              }
+              onClick={() => handleRemoveItem(item.itemId)}
             />
             <div className="counter-container">
               <div className="counter-food">
-                <img alt="food" src={item.image} />
-                <h4>{item.title}</h4>
+                <img alt="food" src="https://quickeat-react.vercel.app/assets/img/order-2.png" />
+                <h4>{item.itemName}</h4>
               </div>
-              <h3>${item.price}</h3>
+              <h3>₹{item.itemPrice}</h3>
             </div>
             <div className="price">
               <div>
-                <h2>${item.price}</h2>
+                <h2>₹{(item.itemPrice * item.quantity).toFixed(2)}</h2>
                 <span>Sum</span>
               </div>
               <div>
@@ -89,7 +133,7 @@ const CheckoutFuntion = ({ sidebar }) => {
                     className="qty-count qty-count--minus"
                     data-action="minus"
                     type="button"
-                    onClick={() => updateQuantity(i, "-")}
+                    onClick={() => handleUpdateQuantity(item.itemId, "-")}
                   >
                     -
                   </button>
@@ -98,15 +142,16 @@ const CheckoutFuntion = ({ sidebar }) => {
                     type="number"
                     value={item.quantity}
                     onChange={(e) =>
-                      updateQuantity(i, "value", Number(e.target.value))
+                      handleUpdateQuantity(item.itemId, "value", Number(e.target.value))
                     }
                     name="quantity"
+                    min="1"
                   />
                   <button
                     className="qty-count qty-count--add"
                     data-action="add"
                     type="button"
-                    onClick={() => updateQuantity(i, "+")}
+                    onClick={() => handleUpdateQuantity(item.itemId, "+")}
                   >
                     +
                   </button>
@@ -117,15 +162,27 @@ const CheckoutFuntion = ({ sidebar }) => {
           </li>
         ))}
       </ul>
+      
       <div className="totel-price">
         <span>Total order:</span>
-        <h5>$ {Number(totalPrice).toFixed(2)}</h5>
+        <h5>₹ {Number(totalPrice).toFixed(2)}</h5>
       </div>
       <div className="totel-price">
         <span>To pay:</span>
-        <h2>$ {Number(totalPrice).toFixed(2)}</h2>
+        <h2>₹ {Number(totalPrice).toFixed(2)}</h2>
       </div>
+
+      <button 
+        className="place-order-btn" 
+        onClick={placeOrder}
+        disabled={isLoading || orderSuccess}
+      >
+        {isLoading ? "Processing..." : orderSuccess ? "Order Placed!" : "Place Order"}
+      </button>
+
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 };
-export default CheckoutFuntion;
+
+export default CheckoutFunction;

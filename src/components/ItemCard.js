@@ -1,91 +1,172 @@
-// ItemCard.jsx
-import { addOrder } from '@/redux/reducers/orderSlice';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-
-const ItemCard = ({ item }) => {
-  const router = useRouter();
-  const { id: restaurantId } = router.query;
-  const dispatch = useDispatch();
-  
-  const { currentUser } = useSelector((state) => state.user);
+const CheckoutFunction = ({ sidebar }) => {
   const { orders } = useSelector((state) => state.order);
+  const { currentUser } = useSelector((state) => state.user);
+  
+  const [subTotal, setSubTotal] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleCartUpdate = (item) => {
-    if (!currentUser) {
+  // Calculate totals whenever orders change
+  useEffect(() => {
+    if (orders && orders.items) {
+      const newSubTotal = orders.items
+        .map(item => item.price * item.quantity)
+        .reduce((prev, next) => prev + next, 0)
+        .toFixed(2);
+      
+      setSubTotal(newSubTotal);
+      setTotalPrice(newSubTotal);
+    }
+  }, [orders]);
 
-      alert('Please login to add items to cart');
+  const updateQuantity = (itemId, type, value) => {
+    // In a real app, you would dispatch an action to update quantity in Redux store
+    console.log(`Would update item ${itemId} with type ${type} and value ${value}`);
+    // This is just a placeholder - you would need to implement the actual update logic
+    // based on how your Redux actions are set up
+  };
+
+  const placeOrder = async () => {
+    if (!orders || !orders.items || orders.items.length === 0) {
+      setError("No items in cart");
       return;
     }
 
-    const orderItem = {
-      itemId: item.id,
-      itemName: item.name,
-      itemPrice: item.price,
-      quantity: 1, 
-      restaurantId: restaurantId,
-      userId: currentUser.user.id,
-      image: item.image,
-    };
+    if (!currentUser) {
+      setError("User not logged in");
+      return;
+    }
 
-    // Check if item already exists in cart
-    const existingItemIndex = orders.findIndex(
-      order => order.itemId === item.id && order.restaurantId === restaurantId
-    );
+    setIsLoading(true);
+    setError(null);
 
-    if (existingItemIndex >= 0) {
-      // If item exists, you might want to increment quantity instead
-      const updatedOrders = [...orders];
-      updatedOrders[existingItemIndex] = orderItem;
-      dispatch(addOrder(updatedOrders));
-    } else {
-      dispatch(addOrder([...orders, orderItem]));
+    try {
+      const orderData = {
+        items: orders.items.map(item => ({
+          foodItemId: item.id, // Assuming 'id' is the foodItemId
+          quantity: item.quantity
+        })),
+        restaurantId: orders.restaurantId // Assuming restaurantId is in the orders state
+      };
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/customer/placeOrder`,
+        orderData,
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.token}`, // Assuming token is available
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      setOrderSuccess(true);
+      // You might want to dispatch an action to clear the cart here
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to place order");
+    } finally {
+      setIsLoading(false);
     }
   };
-  
+
+  if (!orders || !orders.items) {
+    return <div className="checkout-order">Your cart is empty</div>;
+  }
+
   return (
-    <div className="col-md-6 col-lg-4" data-aos="fade-up">
-      <motion.div 
-        className="card h-100 border-0 shadow-sm overflow-hidden"
-        whileHover={{ y: -5 }}
+    <div className="checkout-order">
+      <div className="title-checkout">
+        <h2>Your order:</h2>
+        {!sidebar && <h6>{orders.items.length}</h6>}
+      </div>
+      
+      {orders.restaurant && (
+        <div className="banner-wilmington">
+          <img alt="logo" src={orders.restaurant.image || "assets/img/logo-s.jpg"} />
+          <h6>{orders.restaurant.name || "Restaurant"}</h6>
+        </div>
+      )}
+
+      <ul>
+        {orders.items.map((item, i) => (
+          <li className="price-list" key={item.id}>
+            <i
+              className="closeButton fa-solid fa-xmark"
+              onClick={() => console.log("Would remove item", item.id)}
+            />
+            <div className="counter-container">
+              <div className="counter-food">
+                <img alt="food" src={item.image} />
+                <h4>{item.title}</h4>
+              </div>
+              <h3>${item.price}</h3>
+            </div>
+            <div className="price">
+              <div>
+                <h2>${(item.price * item.quantity).toFixed(2)}</h2>
+                <span>Sum</span>
+              </div>
+              <div>
+                <div className="qty-input">
+                  <button
+                    className="qty-count qty-count--minus"
+                    data-action="minus"
+                    type="button"
+                    onClick={() => updateQuantity(item.id, "-")}
+                  >
+                    -
+                  </button>
+                  <input
+                    className="product-qty"
+                    type="number"
+                    value={item.quantity}
+                    onChange={(e) =>
+                      updateQuantity(item.id, "value", Number(e.target.value))
+                    }
+                    name="quantity"
+                  />
+                  <button
+                    className="qty-count qty-count--add"
+                    data-action="add"
+                    type="button"
+                    onClick={() => updateQuantity(item.id, "+")}
+                  >
+                    +
+                  </button>
+                </div>
+                <span>Quantity</span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      
+      <div className="totel-price">
+        <span>Total order:</span>
+        <h5>$ {Number(totalPrice).toFixed(2)}</h5>
+      </div>
+      <div className="totel-price">
+        <span>To pay:</span>
+        <h2>$ {Number(totalPrice).toFixed(2)}</h2>
+      </div>
+
+      <button 
+        className="place-order-btn" 
+        onClick={placeOrder}
+        disabled={isLoading || orderSuccess}
       >
-        <div className="position-relative" style={{ height: 200, overflow: 'hidden' }}>
-          <img 
-            src={item.image || "https://plus.unsplash.com/premium_photo-1694141251673-1758913ade48?q=80&w=3461&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} 
-            alt={item.name}
-            className="img-fluid w-100 h-100 object-fit-cover"
-          />
-          <div className="position-absolute top-0 end-0 bg-danger text-white px-2 py-1 m-2 rounded-pill">
-            ${item.price.toFixed(2)}
-          </div>
-        </div>
-        
-        <div className="card-body">
-          <h5 className="card-title">{item.name}</h5>
-          <p className="card-text text-muted">{item.description}</p>
-          
-          <div className="d-flex flex-wrap gap-2 mb-3">
-            {item.tags?.slice(0, 3).map(tag => (
-              <span key={tag} className="badge bg-light text-dark border">
-                {tag}
-              </span>
-            ))}
-          </div>
-          
-          <button 
-            className="btn btn-primary w-100"
-            onClick={() => handleCartUpdate(item)}
-          >
-            Add to Order
-          </button>
-        </div>
-      </motion.div>
+        {isLoading ? "Processing..." : orderSuccess ? "Order Placed!" : "Place Order"}
+      </button>
+
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 };
 
-export default ItemCard;
+export default CheckoutFunction;

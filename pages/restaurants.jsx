@@ -28,8 +28,6 @@ const Restaurants = () => {
         
         setRestaurants(res.data.restaurants);
         setError(null);
-        console.log(res.data.restaurants);
-        console.log(res.data);
       } catch (err) {
         console.error("Failed to fetch restaurants:", err);
         setError(err.response?.data?.message || err.message);

@@ -2,8 +2,18 @@ import CheckoutFuntion from "@/src/components/CheckoutFuntion";
 import Layout from "@/src/layouts/Layout";
 import Link from "next/link";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 const Checkout = () => {
   const [tab, setTab] = useState("card");
+
+  const [orderDetails,setOrderDetails]=useState();
+  const { orders } = useSelector((state) => state.order);
+  const {currentUser}=useSelector((state) => state.user);
+  console.log(currentUser)  
+  const dispatch=useDispatch();
+
+
+
 
   return (
     <Layout>
@@ -63,10 +73,18 @@ const Checkout = () => {
           </div>
         </div>
       </section>
+
+
+
+
+
       {/* checkout-order */}
       <section className="gap">
         <div className="container">
           <div className="row">
+
+
+            {/* orders */}
             <div
               className="col-xl-5 col-lg-12"
               data-aos="flip-up"
@@ -75,6 +93,11 @@ const Checkout = () => {
             >
               <CheckoutFuntion />
             </div>
+
+
+
+
+            {/* buyer information */}
             <div
               className="offset-xl-1 col-xl-6 col-lg-12"
               data-aos="flip-up"
