@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { config } from "@/data/axiosData";
-import { 
-  updateQuantity, 
-  deleteOrder, 
-  completeOrders
-} from "@/redux/reducers/orderSlice"; 
+import { updateQuantity, deleteOrder, completeOrders } from "@/redux/reducers/orderSlice"; 
+import { showErrorToast, showSuccessToast } from "./Toast";
 
 const CheckoutFunction = ({ sidebar }) => {
   const dispatch = useDispatch();
@@ -55,11 +52,13 @@ const CheckoutFunction = ({ sidebar }) => {
   const placeOrder = async () => {
     if (!orders || orders.length === 0) {
       setError("No items in cart");
+      showErrorToast("Your cart is empty");
       return;
     }
 
     if (!currentUser) {
       setError("User not logged in");
+      showErrorToast("Please login to place order");
       return;
     }
 
@@ -69,24 +68,34 @@ const CheckoutFunction = ({ sidebar }) => {
     try {
       const orderData = {
         items: orders.map(item => ({
-          foodItemId: item.itemId,
-          quantity: item.quantity
+          foodItemId: Number(item.itemId),
+          quantity: Number(item.quantity)
         })),
-        restaurantId: orders[0].restaurantId 
+        restaurantId: Number(orders[0].restaurantId)
       };
 
+      if (isNaN(orderData.restaurantId)) {
+        throw new Error("Invalid restaurant ID");
+      }
+
+      orderData.items.forEach(item => {
+        if (isNaN(item.foodItemId)) throw new Error("Invalid food item ID");
+        if (isNaN(item.quantity)) throw new Error("Invalid quantity");
+      });
+
       const response = await axios.post(
-        `http://localhost:3000/customer/placeOrder`,
+        `http://localhost:4000/api/customer/placeOrder`,
         orderData,
         config
       );
 
-      // Clear cart and mark as completed on success
       dispatch(completeOrders());
       setOrderSuccess(true);
-     
+      showSuccessToast("Order placed successfully!");
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to place order");
+      const errorMessage = err.response?.data?.message || err.message || "Failed to place order";
+      setError(errorMessage);
+      showErrorToast(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -141,9 +150,7 @@ const CheckoutFunction = ({ sidebar }) => {
                     className="product-qty"
                     type="number"
                     value={item.quantity}
-                    onChange={(e) =>
-                      handleUpdateQuantity(item.itemId, "value", Number(e.target.value))
-                    }
+                    onChange={(e) => handleUpdateQuantity(item.itemId, "value", Number(e.target.value))}
                     name="quantity"
                     min="1"
                   />

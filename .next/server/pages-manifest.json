@@ -3,6 +3,7 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/restaurant-card": "pages/restaurant-card.js",
-  "/checkout": "pages/checkout.js",
-  "/restaurants": "pages/restaurants.js"
+  "/": "pages/index.js",
+  "/about": "pages/about.js",
+  "/checkout": "pages/checkout.js"
 }
