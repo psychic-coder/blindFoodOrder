@@ -1,14 +1,13 @@
 // MenuSection.jsx
 import { motion } from "framer-motion";
 import ItemCard from "./ItemCard";
-import PropTypes from 'prop-types';
+
 
 const MenuSection = ({
   activeTab,
   setActiveTab,
   uniqueTags,
   filteredItems,
-  handleCartUpdate,
 }) => {
   return (
     <section className="py-5 bg-light">
@@ -41,12 +40,13 @@ const MenuSection = ({
           </div>
         </div>
 
+
+        
         <div className="row g-4">
           {filteredItems.map((item) => (
             <ItemCard
               key={item.id}
               item={item}
-              handleCartUpdate={handleCartUpdate}
             />
           ))}
         </div>
@@ -55,20 +55,5 @@ const MenuSection = ({
   );
 };
 
-MenuSection.propTypes = {
-  activeTab: PropTypes.string.isRequired,
-  setActiveTab: PropTypes.func.isRequired,
-  uniqueTags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  filteredItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      tags: PropTypes.arrayOf(PropTypes.string),
-    })
-  ).isRequired,
-  handleCartUpdate: PropTypes.func.isRequired,
-};
 
 export default MenuSection;

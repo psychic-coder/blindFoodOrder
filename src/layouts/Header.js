@@ -1,19 +1,22 @@
 import Link from "next/link";
 import { useState } from "react";
-import CheckoutFuntion from "../components/CheckoutFuntion";
 import MobileMenu from "./MobileMenu";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import CartSidebar from "../components/CartSidebar";
 
 const Header = ({ extraClass }) => {
   const router = useRouter();
+  const { currentUser } = useSelector((state) => state.user);
+  const [mobileToggle, setMobileToggle] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+
   const onClick = (e) => {
     const body = document.querySelector("body");
     body.classList.toggle("active");
     e.preventDefault();
   };
-  const { currentUser } = useSelector((state) => state.user);
-  const [mobileToggle, setMobileToggle] = useState(false);
+
   return (
     <header className={extraClass}>
       <div className="container">
@@ -137,20 +140,6 @@ const Header = ({ extraClass }) => {
                     <Link href="checkout">Checkout</Link>
                   </div>
                 </li>
-
-                {/*below is a Dropdown which include many pages */}
-                {/* <li className="navbar-dropdown">
-                  <Link href="#">Pages</Link>
-                  <div className="dropdown">
-                    <Link href="blog">Blog</Link>
-                    <Link href="single-blog">Single Blog</Link>
-                    <Link href="services">Services</Link>
-                    <Link href="faq">FAQ</Link>
-                    <Link href="pricing-table">Pricing Table</Link>
-                    <Link href="become-partner">Become A Partner</Link>
-                    <Link href="404">404</Link>
-                  </div>
-                </li> */}
                 <li className="navbar-dropdown">
                   <Link href="contacts">Contacts</Link>
                 </li>
@@ -159,16 +148,14 @@ const Header = ({ extraClass }) => {
           </div>
           <div className="col-lg-3">
             <div className="extras bag d-flex align-items-center gap-2">
-              <a
-                href="#"
+              <div
                 id="desktop-menu"
                 className="menu-btn"
-                onClick={(e) => onClick(e)}
+                onClick={() => setShowCart(true)}
               >
                 <i className="fa-solid fa-bag-shopping" />
-              </a>
+              </div>
               <div className="button button-2 me-2">
-                {" "}
                 {currentUser ? (
                   <div onClick={() => router.push("/profile")}>Profile</div>
                 ) : (
@@ -180,15 +167,7 @@ const Header = ({ extraClass }) => {
               </Link>
             </div>
           </div>
-          <div className="menu-wrap">
-            <div className="menu-inner ps ps--active-x ps--active-y">
-              <span className="menu-cls-btn" onClick={(e) => onClick(e)}>
-                <i className="cls-leftright" />
-                <i className="cls-rightleft" />
-              </span>
-              <CheckoutFuntion sidebar />
-            </div>
-          </div>
+          
           <div
             className={`mobile-nav hmburger-menu ${mobileToggle ? "open" : ""}`}
             id="mobile-nav"
@@ -279,7 +258,7 @@ const Header = ({ extraClass }) => {
                         Voice2
                       </tspan>
                       <tspan y={0} fill="#f29f05">
-                        Byte
+                        Bite
                       </tspan>
                     </text>
                   </g>
@@ -291,7 +270,13 @@ const Header = ({ extraClass }) => {
           </div>
         </div>
       </div>
+
+      <CartSidebar 
+        showCart={showCart} 
+        setShowCart={setShowCart} 
+      />
     </header>
   );
 };
+
 export default Header;

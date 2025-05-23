@@ -1,8 +1,52 @@
 // ItemCard.jsx
+import { addOrder } from '@/redux/reducers/orderSlice';
 import { motion } from 'framer-motion';
-import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
-const ItemCard = ({ item, handleCartUpdate }) => {
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+
+const ItemCard = ({ item }) => {
+  const router = useRouter();
+  const { id: restaurantId } = router.query;
+  const dispatch = useDispatch();
+  
+  const { currentUser } = useSelector((state) => state.user);
+  const { orders } = useSelector((state) => state.order);
+
+  const handleCartUpdate = (item) => {
+    if (!currentUser) {
+
+      alert('Please login to add items to cart');
+      return;
+    }
+
+    const orderItem = {
+      itemId: item.id,
+      itemName: item.name,
+      itemPrice: item.price,
+      quantity: 1, 
+      restaurantId: restaurantId,
+      userId: currentUser.user.id,
+      image: item.image,
+    };
+
+    // Check if item already exists in cart
+    const existingItemIndex = orders.findIndex(
+      order => order.itemId === item.id && order.restaurantId === restaurantId
+    );
+
+    if (existingItemIndex >= 0) {
+      // If item exists, you might want to increment quantity instead
+      const updatedOrders = [...orders];
+      updatedOrders[existingItemIndex] = orderItem;
+      dispatch(addOrder(updatedOrders));
+    } else {
+      dispatch(addOrder([...orders, orderItem]));
+    }
+  };
+  
   return (
     <div className="col-md-6 col-lg-4" data-aos="fade-up">
       <motion.div 
@@ -42,18 +86,6 @@ const ItemCard = ({ item, handleCartUpdate }) => {
       </motion.div>
     </div>
   );
-};
-
-ItemCard.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    tags: PropTypes.arrayOf(PropTypes.string),
-    image: PropTypes.string
-  }).isRequired,
-  handleCartUpdate: PropTypes.func.isRequired
 };
 
 export default ItemCard;

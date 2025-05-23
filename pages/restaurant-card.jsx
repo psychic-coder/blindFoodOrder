@@ -141,9 +141,6 @@ const filteredItems = useMemo(() => {
         showCart={showCart}
         setShowCart={setShowCart}
         cart={cart}
-        handleCartUpdate={handleCartUpdate}
-        totalPrice={totalPrice}
-        onCheckout={handleCheckout}
       />
     </>
   );
