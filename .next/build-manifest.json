@@ -42,15 +42,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/contacts.js"
     ],
-    "/profile": [
+    "/itemsTag": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/profile.js"
-    ],
-    "/restaurants": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/restaurants.js"
+      "static/chunks/pages/itemsTag.js"
     ]
   },
   "ampFirstPages": []
