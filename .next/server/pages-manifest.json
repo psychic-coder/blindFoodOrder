@@ -2,9 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/itemsTag": "pages/itemsTag.js",
-  "/about": "pages/about.js",
-  "/contacts": "pages/contacts.js",
+  "/404": "pages/404.js",
   "/": "pages/index.js",
-  "/checkout": "pages/checkout.js"
+  "/profile": "pages/profile.js",
+  "/signin": "pages/signin.js"
 }
